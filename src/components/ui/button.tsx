@@ -1,4 +1,4 @@
-import { mergeClassNames } from "@/lib/styling/class-names";
+import { mergeClassNames } from "@/lib/utils/styling/class-names";
 import { cva, type VariantProps } from "class-variance-authority";
 import * as React from "react";
 

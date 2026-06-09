@@ -40,6 +40,14 @@ _Avoid_: section, block, panel
 A Drizzle schema change expressed in TypeScript, from which `drizzle-kit generate` produces a SQL file. RLS policies are not part of a Migration — they are written as raw SQL alongside the generated file.
 _Avoid_: schema change, database update, Supabase migration
 
+**Story**:
+A Storybook story file that renders a Presentation Component in isolation. Each story represents one distinct state of the component and includes a `play` function for interaction testing. Committed baselines are used for visual regression in CI.
+_Avoid_: example, demo, showcase
+
+**Quality Gate**:
+An automated check that must pass before a PR can merge into main. The ordered gate sequence is: `tsc --noEmit` → ESLint → Vitest with coverage → Playwright visual regression. Coverage must never decrease between PRs.
+_Avoid_: CI step, pipeline check, lint pass
+
 ## Skills
 
 The following skills are installed globally and should be invoked when relevant:

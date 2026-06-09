@@ -1,0 +1,3 @@
+# Feature-first folder structure over layer-first
+
+The `src/` directory is organised by Feature (vertical slice), not by layer (components, hooks, lib). Each feature in `src/features/` is self-contained — it owns its components, hooks, server actions, types, and tests. The `app/` directory is a thin routing shell that imports from features. Shared UI lives in `src/components/` organised by atomic level (atoms, molecules, organisms); shared utilities live in `src/lib/`. A layer-first structure was rejected because it actively works against the vertical slice discipline — it scatters a feature's code across the codebase and makes PRs harder to review as coherent units of work.

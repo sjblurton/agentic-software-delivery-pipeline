@@ -1,0 +1,3 @@
+# Server Components and Server Actions as the primary data layer
+
+Next.js App Router Server Components fetch data directly from the Supabase client on the server — no HTTP client, no API routes, no client-side cache manager. Mutations go through Server Actions, which call Supabase and then invoke `revalidatePath` to bust the cache. This eliminates the need for TanStack Query, axios, or any client-side data fetching library as a default. TanStack Query may be added per-project for genuinely client-driven needs (real-time, polling, optimistic UI) but is not included in the boilerplate. Pending and loading states are handled by React 19's `useFormStatus` and `useActionState` hooks, which are aware of in-flight Server Actions without any additional state management.

@@ -1,0 +1,3 @@
+# Zod at I/O boundaries only
+
+Zod is used exclusively at the points where untrusted data enters the system: form input (via React Hook Form's `@hookform/resolvers`), environment variables (via `@t3-oss/env-nextjs`), and external API responses. Internal domain types — data that has already been parsed and is moving through the application — are expressed as plain TypeScript interfaces and types. Using Zod for internal types couples the entire type system to a runtime library with no benefit, since those types never require runtime validation. The pattern is: parse at the boundary, trust inside.

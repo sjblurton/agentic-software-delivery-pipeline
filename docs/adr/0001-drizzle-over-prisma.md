@@ -1,0 +1,3 @@
+# Drizzle ORM over Prisma
+
+Prisma is the dominant ORM in the TypeScript ecosystem, but it is incompatible with Supabase's auth architecture. Supabase manages users in a separate `auth` schema that Prisma cannot reference, making it impossible to create proper foreign keys to `auth.users` or integrate RLS policies that reference `auth.uid()`. Drizzle defines schemas in TypeScript, generates SQL migrations via `drizzle-kit`, and explicitly supports referencing the Supabase `auth` schema — resolving the incompatibility entirely. The only SQL written by hand is RLS policies, which no ORM fully abstracts away.

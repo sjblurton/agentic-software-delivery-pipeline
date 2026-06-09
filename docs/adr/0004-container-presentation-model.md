@@ -1,0 +1,3 @@
+# Container/Presentation component model
+
+All components follow the Container/Presentation split. Presentation Components are pure UI — props in, JSX out, no data fetching, no external state — making them fully testable with props alone and safe to develop in Storybook in isolation. Container Components own data fetching and business logic, passing data down as props. In App Router, Container Components are Server Components by default. This split is enforced by convention and reviewed by the `ui-ux-review` skill, not by ESLint. The pattern prevents the copy-paste component drift that occurs when components mix concerns — a Presentation Component is built once and reused everywhere.

@@ -15,6 +15,6 @@
     "ui": "@/components/ui",
     "hooks": "@/hooks",
     "lib": "@/lib",
-    "utils": "@/lib/utils"
+    "utils": "@/lib/styling/class-names"
   }
 }

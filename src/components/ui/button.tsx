@@ -1,4 +1,4 @@
-import { cn } from "@/lib/utils";
+import { mergeClassNames } from "@/lib/styling/class-names";
 import { cva, type VariantProps } from "class-variance-authority";
 import * as React from "react";
 
@@ -34,7 +34,7 @@ export interface ButtonProps
 function Button({ className, variant, size, ...props }: ButtonProps) {
   return (
     <button
-      className={cn(buttonVariants({ variant, size, className }))}
+      className={mergeClassNames(buttonVariants({ variant, size, className }))}
       {...props}
     />
   );

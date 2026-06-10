@@ -24,7 +24,7 @@ cp .env.example .env.local
 3. Fill in required values in `.env.local`:
 
 - `NEXT_PUBLIC_SUPABASE_URL`
-- `NEXT_PUBLIC_SUPABASE_ANON_KEY`
+- `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`
 - `DATABASE_URL`
 
 4. Start development server:

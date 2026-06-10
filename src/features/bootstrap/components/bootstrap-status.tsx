@@ -12,12 +12,15 @@ const checks = [
 
 export function BootstrapStatus() {
   return (
-    <section className="w-full rounded-xl border bg-card p-6 text-card-foreground shadow-sm md:p-8">
-      <p className="text-sm font-medium text-muted-foreground">Issue #8</p>
+    <section
+      className="bg-card text-card-foreground w-full rounded-xl border p-6
+        shadow-sm md:p-8"
+    >
+      <p className="text-muted-foreground text-sm font-medium">Issue #8</p>
       <h1 className="mt-2 text-2xl font-semibold tracking-tight md:text-3xl">
         Bootstrap baseline completed
       </h1>
-      <p className="mt-3 max-w-3xl text-muted-foreground">
+      <p className="text-muted-foreground mt-3 max-w-3xl">
         This repository now has the runnable baseline needed for tracer slices #
         2 through #7.
       </p>

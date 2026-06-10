@@ -60,3 +60,23 @@ To install Chromium locally or in CI:
 ```bash
 npx playwright install --with-deps chromium
 ```
+
+## CI pipeline
+
+GitHub Actions runs automatically on every pull request targeting `main` using dedicated workflow files and a fixed gate order:
+
+1. **Code Quality** (`.github/workflows/code-quality.yml`)
+   - `pnpm typecheck`
+   - `pnpm lint`
+   - `pnpm format:check`
+2. **Unit Tests** (`.github/workflows/unit-tests.yml`)
+   - `pnpm test --coverage`
+3. **Build** (`.github/workflows/build.yml`)
+   - `pnpm build`
+4. **E2E** (`.github/workflows/e2e.yml`)
+   - `pnpm test:e2e`
+5. **Visual Regression** (`.github/workflows/visual-regression.yml`)
+   - placeholder job (to be replaced when Storybook visual tests are wired)
+
+Each stage is chained from the previous stage through `workflow_run`, so a failed gate prevents downstream workflows from running.
+Vitest coverage is enforced in `vitest.config.ts` with minimum thresholds of **80% lines** and **80% branches**.

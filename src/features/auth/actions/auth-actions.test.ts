@@ -46,6 +46,20 @@ describe("auth server actions", () => {
     expect(createClientMock).not.toHaveBeenCalled();
   });
 
+  it("returns field-level errors at the boundary for invalid sign-up input", async () => {
+    const result = await signUpAction(
+      initialAuthActionState,
+      createAuthFormData("bad", "123"),
+    );
+
+    expect(result.status).toBe("error");
+    expect(result.fieldErrors).toEqual({
+      email: ["Please enter a valid email."],
+      password: ["Password must be at least 8 characters."],
+    });
+    expect(createClientMock).not.toHaveBeenCalled();
+  });
+
   it("signs in and redirects for valid credentials", async () => {
     createClientMock.mockResolvedValue({
       auth: {

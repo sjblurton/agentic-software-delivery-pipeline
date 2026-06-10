@@ -1,14 +1,17 @@
 import { z } from "zod";
 
-const authCredentialsSchema = z.object({
+export type AuthCredentials = {
+  email: string;
+  password: string;
+};
+
+const authCredentialsSchema: z.ZodType<AuthCredentials> = z.object({
   email: z.email("Please enter a valid email."),
   password: z
     .string()
     .min(8, "Password must be at least 8 characters.")
     .max(72, "Password must be at most 72 characters."),
 });
-
-export type AuthCredentials = z.infer<typeof authCredentialsSchema>;
 
 export type AuthFieldErrors = Partial<Record<keyof AuthCredentials, string[]>>;
 

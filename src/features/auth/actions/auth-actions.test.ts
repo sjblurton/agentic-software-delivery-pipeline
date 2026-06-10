@@ -1,4 +1,4 @@
-import { describe, expect, it, vi } from "vitest";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 import { initialAuthActionState } from "../lib/auth-action-state";
 import { signInAction, signOutAction, signUpAction } from "./auth-actions";
 
@@ -24,6 +24,14 @@ function createAuthFormData(email: string, password: string) {
 }
 
 describe("auth server actions", () => {
+  beforeEach(() => {
+    createClientMock.mockReset();
+    signInWithPasswordMock.mockReset();
+    signUpMock.mockReset();
+    signOutMock.mockReset();
+    redirectMock.mockReset();
+  });
+
   it("returns field-level errors at the boundary for invalid sign-in input", async () => {
     const result = await signInAction(
       initialAuthActionState,
@@ -59,6 +67,28 @@ describe("auth server actions", () => {
     expect(redirectMock).toHaveBeenCalledWith("/?auth=sign-in-success");
   });
 
+  it("returns an error state when sign-in fails at the provider seam", async () => {
+    createClientMock.mockResolvedValue({
+      auth: {
+        signInWithPassword: signInWithPasswordMock.mockResolvedValue({
+          error: { message: "Invalid login credentials." },
+        }),
+      },
+    });
+
+    const result = await signInAction(
+      initialAuthActionState,
+      createAuthFormData("person@example.com", "password123"),
+    );
+
+    expect(result).toEqual({
+      status: "error",
+      message: "Invalid login credentials.",
+      fieldErrors: {},
+    });
+    expect(redirectMock).not.toHaveBeenCalled();
+  });
+
   it("signs up and redirects for valid credentials", async () => {
     createClientMock.mockResolvedValue({
       auth: {
@@ -78,6 +108,28 @@ describe("auth server actions", () => {
     expect(redirectMock).toHaveBeenCalledWith("/?auth=sign-up-success");
   });
 
+  it("returns an error state when sign-up fails at the provider seam", async () => {
+    createClientMock.mockResolvedValue({
+      auth: {
+        signUp: signUpMock.mockResolvedValue({
+          error: { message: "Account already exists." },
+        }),
+      },
+    });
+
+    const result = await signUpAction(
+      initialAuthActionState,
+      createAuthFormData("person@example.com", "password123"),
+    );
+
+    expect(result).toEqual({
+      status: "error",
+      message: "Account already exists.",
+      fieldErrors: {},
+    });
+    expect(redirectMock).not.toHaveBeenCalled();
+  });
+
   it("signs out and redirects to sign-in", async () => {
     createClientMock.mockResolvedValue({
       auth: {
@@ -91,5 +143,24 @@ describe("auth server actions", () => {
     expect(redirectMock).toHaveBeenCalledWith(
       "/auth/sign-in?auth=sign-out-success",
     );
+  });
+
+  it("returns an error state when sign-out fails at the provider seam", async () => {
+    createClientMock.mockResolvedValue({
+      auth: {
+        signOut: signOutMock.mockResolvedValue({
+          error: { message: "Unable to sign out." },
+        }),
+      },
+    });
+
+    const result = await signOutAction(initialAuthActionState);
+
+    expect(result).toEqual({
+      status: "error",
+      message: "Unable to sign out.",
+      fieldErrors: {},
+    });
+    expect(redirectMock).not.toHaveBeenCalled();
   });
 });

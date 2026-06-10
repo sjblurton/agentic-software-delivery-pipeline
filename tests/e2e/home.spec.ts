@@ -3,6 +3,7 @@ import { expect, test } from "@playwright/test";
 test("home page loads", async ({ page }) => {
   const pageErrors: string[] = [];
   const consoleErrors: string[] = [];
+  const failedRequests: string[] = [];
 
   page.on("pageerror", (error) => {
     pageErrors.push(error.message);
@@ -14,6 +15,10 @@ test("home page loads", async ({ page }) => {
     }
   });
 
+  page.on("requestfailed", (request) => {
+    failedRequests.push(request.url());
+  });
+
   await page.goto("/");
 
   await expect(
@@ -21,5 +26,5 @@ test("home page loads", async ({ page }) => {
   ).toBeVisible();
   expect(pageErrors).toEqual([]);
   expect(consoleErrors).toEqual([]);
-  expect(consoleErrors).toEqual([]);
+  expect(failedRequests).toEqual([]);
 });

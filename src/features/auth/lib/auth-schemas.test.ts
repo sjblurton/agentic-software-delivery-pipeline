@@ -19,4 +19,22 @@ describe("parseAuthCredentials", () => {
       "Password must be at least 8 characters.",
     ]);
   });
+
+  it("returns parsed credentials for valid input", () => {
+    const formData = new FormData();
+    formData.set("email", "user@example.com");
+    formData.set("password", "securepassword");
+
+    const result = parseAuthCredentials(formData);
+
+    expect(result.ok).toBe(true);
+    if (!result.ok) {
+      throw new Error("Expected parse success");
+    }
+
+    expect(result.credentials).toEqual({
+      email: "user@example.com",
+      password: "securepassword",
+    });
+  });
 });

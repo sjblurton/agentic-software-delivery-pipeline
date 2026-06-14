@@ -15,9 +15,21 @@ describe("AuthStatusToast", () => {
     toastMock.success.mockReset();
   });
 
-  it("emits a success toast for known auth status values", () => {
+  it("emits a success toast for sign-in-success", () => {
     render(<AuthStatusToast authStatus="sign-in-success" />);
     expect(toastMock.success).toHaveBeenCalledWith("Signed in successfully.");
+  });
+
+  it("emits a success toast for sign-up-success", () => {
+    render(<AuthStatusToast authStatus="sign-up-success" />);
+    expect(toastMock.success).toHaveBeenCalledWith(
+      "Account created successfully.",
+    );
+  });
+
+  it("emits a success toast for sign-out-success", () => {
+    render(<AuthStatusToast authStatus="sign-out-success" />);
+    expect(toastMock.success).toHaveBeenCalledWith("Signed out successfully.");
   });
 
   it("does not emit toasts for unknown auth status values", () => {

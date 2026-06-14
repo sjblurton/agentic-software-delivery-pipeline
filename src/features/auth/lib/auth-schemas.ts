@@ -6,11 +6,11 @@ export type AuthCredentials = {
 };
 
 const authCredentialsSchema: z.ZodType<AuthCredentials> = z.object({
-  email: z.email("Please enter a valid email."),
+  email: z.email({ error: "Please enter a valid email." }),
   password: z
     .string()
-    .min(8, "Password must be at least 8 characters.")
-    .max(72, "Password must be at most 72 characters."),
+    .min(8, { error: "Password must be at least 8 characters." })
+    .max(72, { error: "Password must be at most 72 characters." }),
 });
 
 export type AuthFieldErrors = Partial<Record<keyof AuthCredentials, string[]>>;

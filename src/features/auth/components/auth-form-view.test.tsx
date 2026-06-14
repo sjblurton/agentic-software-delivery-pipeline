@@ -28,4 +28,34 @@ describe("AuthFormView", () => {
       screen.getByRole("button", { name: "Sign in with email" }),
     ).toBeInTheDocument();
   });
+
+  it("renders idle sign-in state with no errors", () => {
+    render(<AuthFormView mode="sign-in" isPending={false} fieldErrors={{}} />);
+
+    expect(
+      screen.getByRole("heading", { name: "Sign in" }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("button", { name: "Sign in with email" }),
+    ).toBeEnabled();
+  });
+
+  it("renders pending state with disabled submit button", () => {
+    render(<AuthFormView mode="sign-in" isPending={true} fieldErrors={{}} />);
+
+    expect(
+      screen.getByRole("button", { name: "Sign in with email" }),
+    ).toBeDisabled();
+  });
+
+  it("renders sign-up mode with correct labels", () => {
+    render(<AuthFormView mode="sign-up" isPending={false} fieldErrors={{}} />);
+
+    expect(
+      screen.getByRole("heading", { name: "Create account" }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("button", { name: "Create account" }),
+    ).toBeInTheDocument();
+  });
 });

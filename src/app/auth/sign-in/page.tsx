@@ -1,6 +1,6 @@
 import { AuthFormContainer } from "@/features/auth/components/auth-form-container";
 import { AuthStatusToast } from "@/features/auth/components/auth-status-toast";
-import { createClient } from "@/lib/supabase/server";
+import { getCurrentUser } from "@/lib/supabase/get-current-user";
 import { redirect } from "next/navigation";
 
 type SignInPageProps = {
@@ -10,10 +10,7 @@ type SignInPageProps = {
 };
 
 export default async function SignInPage({ searchParams }: SignInPageProps) {
-  const supabase = await createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  const user = await getCurrentUser();
 
   if (user) {
     redirect("/");

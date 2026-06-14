@@ -47,6 +47,8 @@ Visit http://localhost:3000 to confirm the bootstrap baseline route renders.
 - `pnpm test:watch` — run Vitest in watch mode
 - `pnpm test:e2e` — run the Playwright smoke test suite
 - `pnpm test:e2e:ui` — open Playwright UI mode
+- `pnpm storybook` — run Storybook dev server on port 6006
+- `pnpm build-storybook` — build Storybook static output
 - `pnpm db:generate` — generate Drizzle migration files
 - `pnpm db:push` — push schema to database
 - `pnpm db:studio` — open Drizzle Studio
@@ -60,6 +62,15 @@ To install Chromium locally or in CI:
 ```bash
 npx playwright install --with-deps chromium
 ```
+
+## Storybook
+
+Storybook is configured with `@storybook/nextjs` (framework), `@storybook/addon-a11y` (accessibility checks), and Tailwind CSS via the global stylesheet.
+
+- Stories live alongside their components: `src/**/*.stories.tsx`
+- Run `pnpm storybook` to open the dev server at http://localhost:6006
+- Run `pnpm build-storybook` to generate a static build in `storybook-static/`
+- The `storybook-static/` output directory is gitignored
 
 ## CI pipeline
 

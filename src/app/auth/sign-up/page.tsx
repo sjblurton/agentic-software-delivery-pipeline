@@ -9,6 +9,7 @@ type SignUpPageProps = {
 
 export default async function SignUpPage({ searchParams }: SignUpPageProps) {
   const resolvedSearchParams = await searchParams;
+  console.log("SignInPage searchParams:", resolvedSearchParams); // Debugging line
   return (
     <main
       className="mx-auto flex w-full max-w-4xl flex-1 items-center

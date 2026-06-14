@@ -13,6 +13,11 @@ const eslintConfig = defineConfig([
   ...noBarrelFiles.configs.recommended,
   vitest.configs.recommended,
   sonarjs.configs.recommended,
+  {
+    rules: {
+      "no-console": "error",
+    },
+  },
   // Override default ignores of eslint-config-next.
   globalIgnores([
     // Default ignores of eslint-config-next:

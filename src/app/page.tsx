@@ -16,7 +16,6 @@ export default async function Home({ searchParams }: HomePageProps) {
     data: { user },
   } = await supabase.auth.getUser();
 
-  console.log({ user });
   if (!user) {
     redirect("/auth/sign-in");
   }

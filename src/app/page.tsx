@@ -1,8 +1,8 @@
 import { BootstrapStatus } from "@/features/bootstrap/components/bootstrap-status";
 import { AuthStatusToast } from "@/features/auth/components/auth-status-toast";
 import { SignOutButton } from "@/features/auth/components/sign-out-button";
-import { createClient } from "@/lib/supabase/server";
 import { redirect } from "next/navigation";
+import { getCurrentUser } from "@/lib/supabase/get-current-user";
 
 type HomePageProps = {
   searchParams?: Promise<{
@@ -11,10 +11,7 @@ type HomePageProps = {
 };
 
 export default async function Home({ searchParams }: HomePageProps) {
-  const supabase = await createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  const user = await getCurrentUser();
 
   if (!user) {
     redirect("/auth/sign-in");

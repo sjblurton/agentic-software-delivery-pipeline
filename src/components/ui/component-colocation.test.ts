@@ -1,5 +1,6 @@
 import { existsSync } from "node:fs";
 import { join } from "node:path";
+import { describe, expect, it } from "vitest";
 
 const uiRoot = join(process.cwd(), "src", "components", "ui");
 const atoms = ["button", "input", "card"] as const;

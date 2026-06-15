@@ -44,6 +44,18 @@ _Avoid_: schema change, database update, Supabase migration
 A Storybook story file that renders a Presentation Component in isolation. Each story represents one distinct state of the component and includes a `play` function for interaction testing. Committed baselines are used for visual regression in CI.
 _Avoid_: example, demo, showcase
 
+**FormField**:
+A reusable Molecule combining Label + Input + error display for a single form field. Accepts `name`, `type`, `placeholder`, and other HTML input attributes. Uses `useController()` internally to bind to react-hook-form. Extracts `required` constraint from Zod schema automatically. Works standalone in Storybook.
+_Avoid_: form component, input wrapper, field component
+
+**FormContainer**:
+A generic Client Component orchestrator for forms. Accepts a Zod schema, validation mode (default "onBlur"), a Server Action (`onSubmit`), and an `onSuccess` callback. Wraps children in `FormProvider`, manages `useActionState()` for Server Action submission, and auto-syncs server-side field errors via `form.setError()`. Passes `isPending` state to children.
+_Avoid_: form component, form wrapper, form orchestrator
+
+**FormActionState**:
+The return shape of a Server Action handling form submission. Contains `status` ("success" | "error" | "idle"), `fieldErrors` (nested paths like "phones.0.number" supported), optional `message` (for toasts), and optional generic `data` (success payload). FormContainer auto-syncs `fieldErrors` back into react-hook-form on error responses.
+_Avoid_: form state, action state, error state
+
 **Quality Gate**:
 An automated check that must pass before a PR can merge into main. The ordered gate sequence is: `tsc --noEmit` → ESLint → Vitest with coverage → Playwright visual regression. Coverage must never decrease between PRs.
 _Avoid_: CI step, pipeline check, lint pass

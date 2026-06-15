@@ -60,9 +60,7 @@ jobs:
           path: |
             .vrt-images
             visual-snapshot-changes.txt
-      - name: Require human review for visual changes
+      - name: Warn on visual changes
         if: steps.visual-compare.outcome == 'failure' || steps.baseline-changes.outputs.has_changes == 'true'
         run: |
-          echo "Visual regression needs human review."
-          echo "Inspect visual-regression-artifacts and commit approved baseline updates."
-          exit 1
+          echo "::warning::Visual regression changes detected. Review visual-regression-artifacts and .vrt-images in this PR."

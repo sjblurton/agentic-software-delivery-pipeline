@@ -6,6 +6,33 @@ AI-driven delivery system that turns a product brief into reviewed pull requests
 
 ### **Brief -> Context Expansion -> PRD -> Issue Graph -> Agent Execution -> Human Review -> PR Integration**
 
+```mermaid
+flowchart LR
+	A[Product Brief] --> B[Context Expansion<br/>Retrieval-Augmented Grounding]
+	B --> C[PRD Generation]
+	C --> D[Issue Graph<br/>Task Decomposition]
+	D --> E[Execution Layer<br/>AI Coding Agents]
+	E --> F[Evaluation Layer<br/>Critique & Spec Alignment]
+	F --> G[Human Review]
+	G --> H[PR Integration]
+	F -. Feedback .-> C
+	G -. Refinement .-> D
+	E -. Rework .-> D
+
+	subgraph Guardrails
+		I[CI Validation<br/>Tests • Lint • Type Safety]
+	end
+
+	E --> I
+	I --> F
+
+	subgraph Future
+		J[Ralph Loop<br/>Batch Execution & Autonomous PRs]
+	end
+
+	J -. Evolution .-> E
+```
+
 This lifecycle is iterative, not single-pass: execution and review outcomes can trigger PRD refinement, issue-graph updates, and re-execution before merge.
 
 1. Start with a high-level product brief.

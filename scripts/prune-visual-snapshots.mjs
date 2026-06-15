@@ -5,12 +5,13 @@ const indexPath = path.resolve("storybook-static/index.json");
 const snapshotDir = path.resolve(
   "tests/visual/storybook.visual.spec.ts-snapshots",
 );
+const visualProjectNames = ["desktop-chrome", "mobile-chrome"];
 
 function writeLine(message) {
   process.stdout.write(`${message}\n`);
 }
 
-function toSnapshotName(entry) {
+function toSnapshotBaseName(entry) {
   const importPath = entry.importPath ?? "";
   const normalizedImportPath = importPath
     .replace(/^\.\//, "")
@@ -21,7 +22,7 @@ function toSnapshotName(entry) {
     separatorIndex === -1 ? entry.id : entry.id.slice(separatorIndex + 2);
   const directoryName = path.posix.dirname(normalizedImportPath);
   const baseName = path.posix.basename(normalizedImportPath);
-  const fileName = `${baseName}--${storySlug}-chromium.png`;
+  const fileName = `${baseName}--${storySlug}`;
 
   if (directoryName === ".") {
     return fileName;
@@ -63,7 +64,12 @@ async function main() {
       .filter((entry) => entry.type === "story")
       .filter((entry) => entry.tags?.includes("test"))
       .filter((entry) => !entry.tags?.includes("skip-visual"))
-      .map((entry) => toSnapshotName(entry)),
+      .flatMap((entry) => {
+        const baseName = toSnapshotBaseName(entry);
+        return visualProjectNames.map(
+          (projectName) => `${baseName}-${projectName}.png`,
+        );
+      }),
   );
 
   let existingSnapshotNames = [];
@@ -75,7 +81,7 @@ async function main() {
   }
 
   const staleSnapshots = existingSnapshotNames.filter((fileName) => {
-    if (!fileName.endsWith("-chromium.png")) {
+    if (!fileName.endsWith(".png")) {
       return false;
     }
 

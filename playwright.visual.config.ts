@@ -12,7 +12,7 @@ export default defineConfig({
     "{testDir}/{testFilePath}-snapshots/{arg}-{projectName}{ext}",
   outputDir: "./test-results/visual",
   forbidOnly: !!process.env.CI,
-  retries: process.env.CI ? 2 : 0,
+  retries: 0,
   reporter: process.env.CI ? [["github"], ["html", { open: "never" }]] : "list",
   use: {
     baseURL,
@@ -20,13 +20,13 @@ export default defineConfig({
   },
   projects: [
     {
-      name: "Mobile Chrome",
+      name: "mobile-chrome",
       use: {
         ...devices["Pixel 5"],
       },
     },
     {
-      name: "Desktop Chrome",
+      name: "desktop-chrome",
       use: {
         ...devices["Desktop Chrome"],
       },

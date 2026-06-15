@@ -9,9 +9,17 @@ const stories = [
 test.describe("AuthFormView visual baselines", () => {
   for (const storyId of stories) {
     test(`matches baseline for ${storyId}`, async ({ page }) => {
+      await page.emulateMedia({ colorScheme: "dark" });
       await page.goto(`/iframe.html?id=${storyId}&viewMode=story`);
 
       await expect(page.getByTestId("auth-form-view-story-root")).toBeVisible();
+      await expect
+        .poll(async () => {
+          return page.evaluate(
+            () => getComputedStyle(document.body).backgroundColor,
+          );
+        })
+        .not.toBe("rgb(255, 255, 255)");
       await expect(page).toHaveScreenshot(`${storyId}.png`, {
         animations: "disabled",
         fullPage: true,

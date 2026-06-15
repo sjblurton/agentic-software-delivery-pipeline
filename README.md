@@ -67,6 +67,8 @@ npx playwright install --with-deps chromium
 Storybook is configured with `@storybook/nextjs` (framework), `@storybook/addon-a11y` (accessibility checks), and Tailwind CSS via the global stylesheet.
 
 - Stories live alongside their components: `src/**/*.stories.tsx`
+- New UI components are only complete when they include at least one co-located Storybook story in the same component folder.
+- Recommended structure: `component-name/component-name.tsx` + `component-name/component-name.stories.tsx`
 - Run `pnpm storybook` to open the dev server at http://localhost:6006
 - Run `pnpm build-storybook` to generate a static build in `storybook-static/`
 - The `storybook-static/` output directory is gitignored

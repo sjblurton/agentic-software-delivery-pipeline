@@ -44,6 +44,10 @@ _Avoid_: schema change, database update, Supabase migration
 A Storybook story file that renders a Presentation Component in isolation. Each story represents one distinct state of the component and includes a `play` function for interaction testing. Committed baselines are used for visual regression in CI.
 _Avoid_: example, demo, showcase
 
+**Component Co-location Rule**:
+All new UI components must live in their own folder with implementation and story side-by-side (for example `src/components/atoms/button/button.tsx` and `src/components/atoms/button/button.stories.tsx`). A new UI component is not complete without at least one Storybook story in that folder.
+_Avoid_: flat component files, adding stories later, separate story trees
+
 **Quality Gate**:
 An automated check that must pass before a PR can merge into main. The ordered gate sequence is: `tsc --noEmit` → ESLint → Vitest with coverage → Playwright visual regression. Coverage must never decrease between PRs.
 _Avoid_: CI step, pipeline check, lint pass

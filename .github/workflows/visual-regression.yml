@@ -12,6 +12,10 @@ jobs:
   visual-regression:
     name: Storybook visual regression
     runs-on: ubuntu-latest
+    env:
+      PLAYWRIGHT_VISUAL_BASE_URL: http://127.0.0.1:6006
+      PLAYWRIGHT_VISUAL_WEB_SERVER_COMMAND: >-
+        python3 -m http.server 6006 --directory storybook-static --bind 127.0.0.1
     steps:
       - name: Checkout
         uses: actions/checkout@v5
@@ -31,16 +35,34 @@ jobs:
       - name: Install Playwright Chromium
         run: pnpm exec playwright install --with-deps chromium
       - name: Run visual regression
-        env:
-          PLAYWRIGHT_VISUAL_BASE_URL: http://127.0.0.1:6006
-          PLAYWRIGHT_VISUAL_WEB_SERVER_COMMAND: >-
-            python3 -m http.server 6006 --directory storybook-static --bind 127.0.0.1
+        id: visual-compare
+        continue-on-error: true
         run: pnpm ci:visual
+      - name: Generate candidate baseline updates
+        if: steps.visual-compare.outcome == 'failure'
+        run: pnpm ci:visual:update
+      - name: Detect baseline file changes
+        id: baseline-changes
+        run: |
+          git status --porcelain -- tests/visual > visual-snapshot-changes.txt
+          if [ -s visual-snapshot-changes.txt ]; then
+            echo "has_changes=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "has_changes=false" >> "$GITHUB_OUTPUT"
+          fi
       - name: Upload visual regression artifacts
-        if: failure()
+        if: steps.visual-compare.outcome == 'failure' || steps.baseline-changes.outputs.has_changes == 'true'
         uses: actions/upload-artifact@v4
         with:
           name: visual-regression-artifacts
           path: |
             playwright-report
             test-results
+            tests/visual
+            visual-snapshot-changes.txt
+      - name: Require human confirmation for visual baseline updates
+        if: steps.visual-compare.outcome == 'failure' || steps.baseline-changes.outputs.has_changes == 'true'
+        run: |
+          echo "Visual regression requires human review."
+          echo "Review visual-regression-artifacts and commit approved baseline additions/modifications/deletions."
+          exit 1

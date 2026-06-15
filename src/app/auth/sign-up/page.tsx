@@ -1,7 +1,5 @@
 import { AuthFormContainer } from "@/features/auth/components/auth-form-container";
 import { AuthStatusToast } from "@/features/auth/components/auth-status-toast";
-import { getCurrentUser } from "@/lib/supabase/get-current-user";
-import { redirect } from "next/navigation";
 
 type SignUpPageProps = {
   searchParams?: Promise<{
@@ -10,12 +8,6 @@ type SignUpPageProps = {
 };
 
 export default async function SignUpPage({ searchParams }: SignUpPageProps) {
-  const user = await getCurrentUser();
-
-  if (user) {
-    redirect("/");
-  }
-
   const resolvedSearchParams = await searchParams;
   return (
     <main

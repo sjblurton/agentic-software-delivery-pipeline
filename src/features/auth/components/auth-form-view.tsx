@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/ui/button/button";
 import {
   Card,
   CardContent,
@@ -6,8 +6,8 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
+} from "@/components/ui/card/card";
+import { Input } from "@/components/ui/input/input";
 import type { AuthFieldErrors } from "../lib/auth-schemas";
 
 type AuthMode = "sign-in" | "sign-up";

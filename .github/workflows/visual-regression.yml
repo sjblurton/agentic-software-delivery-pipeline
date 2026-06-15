@@ -35,7 +35,7 @@ jobs:
           PLAYWRIGHT_VISUAL_BASE_URL: http://127.0.0.1:6006
           PLAYWRIGHT_VISUAL_WEB_SERVER_COMMAND: >-
             python3 -m http.server 6006 --directory storybook-static --bind 127.0.0.1
-        run: pnpm test:visual
+        run: pnpm ci:visual
       - name: Upload visual regression artifacts
         if: failure()
         uses: actions/upload-artifact@v4

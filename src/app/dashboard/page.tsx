@@ -1,6 +1,5 @@
 import { AuthStatusToast } from "@/features/auth/components/auth-status-toast";
 import { SignOutButton } from "@/features/auth/components/sign-out-button";
-import { requireAuth } from "@/features/auth/lib/route-guards";
 import { BootstrapStatus } from "@/features/bootstrap/components/bootstrap-status";
 
 type DashboardPageProps = {
@@ -12,8 +11,6 @@ type DashboardPageProps = {
 export default async function DashboardPage({
   searchParams,
 }: DashboardPageProps) {
-  await requireAuth();
-
   const resolvedSearchParams = await searchParams;
   return (
     <main

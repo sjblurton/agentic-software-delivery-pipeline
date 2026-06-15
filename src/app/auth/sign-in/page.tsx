@@ -1,6 +1,5 @@
 import { AuthFormContainer } from "@/features/auth/components/auth-form-container";
 import { AuthStatusToast } from "@/features/auth/components/auth-status-toast";
-import { requireGuest } from "@/features/auth/lib/route-guards";
 
 type SignInPageProps = {
   searchParams?: Promise<{
@@ -9,8 +8,6 @@ type SignInPageProps = {
 };
 
 export default async function SignInPage({ searchParams }: SignInPageProps) {
-  await requireGuest();
-
   const resolvedSearchParams = await searchParams;
   return (
     <main

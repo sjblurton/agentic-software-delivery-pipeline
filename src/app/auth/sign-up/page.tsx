@@ -1,6 +1,5 @@
 import { AuthFormContainer } from "@/features/auth/components/auth-form-container";
 import { AuthStatusToast } from "@/features/auth/components/auth-status-toast";
-import { requireGuest } from "@/features/auth/lib/route-guards";
 
 type SignUpPageProps = {
   searchParams?: Promise<{
@@ -9,8 +8,6 @@ type SignUpPageProps = {
 };
 
 export default async function SignUpPage({ searchParams }: SignUpPageProps) {
-  await requireGuest();
-
   const resolvedSearchParams = await searchParams;
   return (
     <main

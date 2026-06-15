@@ -24,10 +24,10 @@ function toSnapshotName(entry) {
   const fileName = `${baseName}--${storySlug}-chromium.png`;
 
   if (directoryName === ".") {
-    return fileName;
+    return path.posix.join("__snapshots__", fileName);
   }
 
-  return path.posix.join(directoryName, fileName);
+  return path.posix.join(directoryName, "__snapshots__", fileName);
 }
 
 async function findSnapshotFiles(directoryPath, parent = "") {

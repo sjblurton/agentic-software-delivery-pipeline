@@ -28,10 +28,10 @@ function toSnapshotPathSegments(entry: StorybookIndexEntry) {
   const fileName = `${baseName}--${storySlug}.png`;
 
   if (directoryName === ".") {
-    return [fileName];
+    return ["__snapshots__", fileName];
   }
 
-  return [directoryName, fileName];
+  return [directoryName, "__snapshots__", fileName];
 }
 
 async function getVisualStories(

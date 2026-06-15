@@ -1,6 +1,6 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/ui/button/button";
 import { Database, Server, ShieldCheck } from "lucide-react";
 import { toast } from "sonner";
 

@@ -3,6 +3,10 @@
 import type { User } from "@supabase/supabase-js";
 import { createClient } from "./server";
 
+const isRecoverableSessionError = (error: unknown) =>
+  error instanceof Error &&
+  error.message.toLowerCase().includes("invalid refresh token");
+
 export const getCurrentUser = async () => {
   const authMode = process.env.E2E_AUTH_MODE;
   const shouldBypassAuth = process.env.CI === "true" && Boolean(authMode);
@@ -19,9 +23,16 @@ export const getCurrentUser = async () => {
   }
 
   const supabase = await createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  try {
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
 
-  return user;
+    return user;
+  } catch (error) {
+    if (isRecoverableSessionError(error)) {
+      return null;
+    }
+    throw error;
+  }
 };

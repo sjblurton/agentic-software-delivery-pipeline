@@ -30,7 +30,7 @@ export async function signInAction(
     };
   }
 
-  redirect("/?auth=sign-in-success");
+  redirect("/dashboard?auth=sign-in-success");
 }
 
 export async function signUpAction(
@@ -58,7 +58,7 @@ export async function signUpAction(
     };
   }
 
-  redirect("/?auth=sign-up-success");
+  redirect("/dashboard?auth=sign-up-success");
 }
 
 export async function signOutAction(

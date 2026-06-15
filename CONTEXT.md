@@ -12,6 +12,10 @@ _Avoid_: feature ticket, story, module
 A vertical slice of functionality living in `src/features/`. Each feature owns its own components, hooks, server actions, types, and tests.
 _Avoid_: module, section, page
 
+**Database Starter Slice**:
+A starter vertical slice proving end-to-end database integration in the template: protected page, Drizzle read query rendered in a basic table, and a Server Action create flow that updates visible data.
+_Avoid_: DB demo, database example, drizzle sample
+
 **Boundary**:
 The point where untrusted data enters the system — form input, API response, URL params, environment variables — and is parsed through a Zod schema. Zod lives only at boundaries; internal domain types are plain TypeScript.
 _Avoid_: edge, entry point, validation layer
@@ -44,9 +48,21 @@ _Avoid_: schema change, database update, Supabase migration
 A Storybook story file that renders a Presentation Component in isolation. Each story represents one distinct state of the component and includes a `play` function for interaction testing. Committed baselines are used for visual regression in CI.
 _Avoid_: example, demo, showcase
 
-**Component Co-location Rule**:
-All new UI components must live in their own folder with implementation and story side-by-side (for example `src/components/atoms/button/button.tsx` and `src/components/atoms/button/button.stories.tsx`). A new UI component is not complete without at least one Storybook story in that folder.
-_Avoid_: flat component files, adding stories later, separate story trees
+**Component Co-location**:
+The file-structure convention where each UI component lives in its own folder with its implementation and story side-by-side (for example `component-name/component-name.tsx` and `component-name.stories.tsx`).
+_Avoid_: flat component files, separate story tree
+
+**FormField**:
+A reusable Molecule combining Label + Input + error display for a single form field. Accepts `name`, `type`, `placeholder`, and other HTML input attributes. Uses `useController()` internally to bind to react-hook-form. Extracts `required` constraint from Zod schema automatically. Works standalone in Storybook.
+_Avoid_: form component, input wrapper, field component
+
+**FormContainer**:
+A generic Client Component orchestrator for forms. Accepts a Zod schema, validation mode (default "onBlur"), a Server Action (`onSubmit`), and an `onSuccess` callback. Wraps children in `FormProvider`, manages `useActionState()` for Server Action submission, and auto-syncs server-side field errors via `form.setError()`. Passes `isPending` state to children.
+_Avoid_: form component, form wrapper, form orchestrator
+
+**FormActionState**:
+The return shape of a Server Action handling form submission. Contains `status` ("success" | "error" | "idle"), `fieldErrors` (nested paths like "phones.0.number" supported), optional `message` (for toasts), and optional generic `data` (success payload). FormContainer auto-syncs `fieldErrors` back into react-hook-form on error responses.
+_Avoid_: form state, action state, error state
 
 **Quality Gate**:
 An automated check that must pass before a PR can merge into main. The ordered gate sequence is: `tsc --noEmit` → ESLint → Vitest with coverage → Playwright visual regression. Coverage must never decrease between PRs.

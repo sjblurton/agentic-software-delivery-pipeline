@@ -1,98 +1,49 @@
-# AI Next Supabase Boilerplate
+# Agentic Software Delivery Pipeline
 
-Baseline Next.js + Supabase boilerplate with TypeScript strict mode, Drizzle tooling, Tailwind + shadcn/ui foundations, and boundary-validation dependencies prewired.
+AI-driven delivery system that turns a product brief into reviewed pull requests through constrained orchestration.
 
-## Prerequisites
+## Architecture (Primary)
 
-- Node.js 22 (`.nvmrc`)
-- pnpm (via Corepack)
+### **Brief -> Context Expansion -> PRD -> Issue Graph -> Agent Execution -> Human Review -> PR Integration**
 
-## Setup
+This lifecycle is iterative, not single-pass: execution and review outcomes can trigger PRD refinement, issue-graph updates, and re-execution before merge.
 
-1. Install dependencies:
+1. Start with a high-level product brief.
+2. Expand context via retrieval-augmented grounding from repository and documentation sources.
+3. Generate a structured PRD with scope and acceptance criteria.
+4. Decompose the PRD into dependency-aware GitHub issues.
+5. Execute issues with AI agents that produce code and tests.
+6. Gate integration through human review and CI validation.
 
-```bash
-pnpm install
-```
+## Agent Model
 
-2. Create local environment file:
+- Planning layer: PRD generation and issue decomposition.
+- Execution layer: bounded task implementation under repository constraints.
+- Evaluation layer: critique, regression detection, and spec alignment.
 
-```bash
-cp .env.example .env.local
-```
+## Ralph Loop (Planned)
 
-3. Fill in required values in `.env.local`:
+Next evolution: a value-prioritised batch execution mode that selects the highest-value available issues first, delivers them to pull request state, and applies pre-merge validation via internal critique agents.
 
-- `NEXT_PUBLIC_SUPABASE_URL`
-- `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`
-- `DATABASE_URL`
+Ralph Loop does not merge autonomously. It runs until all selected issues are in pull request state, or until the next highest-value issue is blocked and requires human review.
 
-4. Start development server:
+## Guardrails
 
-```bash
-pnpm dev
-```
+- Agent outputs are validated against PRD acceptance criteria.
+- CI enforces correctness constraints (tests, linting, type safety, build, visual checks).
+- Human review is required before any merge.
+- Structured artefacts reduce hallucination risk versus free-form generation.
+- The system is designed for constrained autonomy, with explicit validation boundaries.
 
-Visit http://localhost:3000 to confirm the bootstrap baseline route renders.
+## Implementation Layer
 
-## Scripts
+Supporting infrastructure (execution substrate):
 
-- `pnpm dev` — run local app
-- `pnpm build` — production build
-- `pnpm format` — format the repo with Prettier
-- `pnpm format:check` — verify formatting without writing changes
-- `pnpm lint` — run ESLint
-- `pnpm typecheck` — run TypeScript checks
-- `pnpm test` — run Vitest once
-- `pnpm test:watch` — run Vitest in watch mode
-- `pnpm test:e2e` — run the Playwright smoke test suite
-- `pnpm storybook` — run Storybook dev server on port 6006
-- `pnpm build-storybook` — build Storybook static output
-- `pnpm db:generate` — generate Drizzle migration files
-- `pnpm db:push` — push schema to database
-- `pnpm db:studio` — open Drizzle Studio
+- Next.js + TypeScript
+- Supabase + Drizzle
+- Vitest + Playwright + Storybook
+- GitHub Actions
 
-## E2E testing
+## Philosophy
 
-Playwright runs the smoke test in `tests/e2e/` against the app's home page. The config starts the Next.js dev server automatically when needed.
-
-To install Chromium locally or in CI:
-
-```bash
-npx playwright install --with-deps chromium
-```
-
-## Storybook
-
-Storybook is configured with `@storybook/nextjs` (framework), `@storybook/addon-a11y` (accessibility checks), and Tailwind CSS via the global stylesheet.
-
-- Stories live alongside their components: `src/**/*.stories.tsx`
-- New UI components are only complete when they include at least one co-located Storybook story in the same component folder.
-- Recommended structure: `component-name/component-name.tsx` + `component-name/component-name.stories.tsx`
-- Run `pnpm storybook` to open the dev server at http://localhost:6006
-- Run `pnpm build-storybook` to generate a static build in `storybook-static/`
-- The `storybook-static/` output directory is gitignored
-
-## CI pipeline
-
-GitHub Actions runs automatically on every pull request targeting `main` using dedicated workflow files and a fixed gate order:
-
-1. **Code Quality** (`.github/workflows/code-quality.yml`)
-   - `pnpm typecheck`
-   - `pnpm lint`
-   - `pnpm format:check`
-2. **Unit Tests** (`.github/workflows/unit-tests.yml`)
-   - `pnpm test --coverage`
-3. **Build** (`.github/workflows/build.yml`)
-   - `pnpm build`
-4. **E2E** (`.github/workflows/e2e.yml`)
-   - `pnpm test:e2e`
-5. **Visual Regression** (`.github/workflows/visual-regression.yml`)
-   - `pnpm build-storybook`
-   - `pnpm ci:visual` (Playwright screenshot comparison against committed baselines)
-   - Baselines are stored in `.vrt-images/`
-   - Story screenshots are auto-discovered from Storybook `index.json` (`type: story`, `test` tag, excluding `skip-visual`)
-   - On first-run or intentional UI changes, CI generates candidate baseline additions/updates, prunes obsolete baselines, and uploads artifacts for human review in the PR
-
-Each stage is chained from the previous stage through `workflow_run`, so a failed gate prevents downstream workflows from running.
-Vitest coverage is enforced in `vitest.config.ts` with minimum thresholds of **80% lines** and **80% branches**.
+Structured AI-assisted engineering: decompose work, generate explicit artefacts, validate continuously, and integrate under human control.

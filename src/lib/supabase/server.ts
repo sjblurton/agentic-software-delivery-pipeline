@@ -11,6 +11,21 @@ function isReadonlyCookieStoreError(error: unknown): boolean {
   );
 }
 
+function setCookie(
+  cookieStore: Awaited<ReturnType<typeof cookies>>,
+  name: string,
+  value: string,
+  options: Parameters<typeof cookieStore.set>[2],
+) {
+  try {
+    cookieStore.set(name, value, options);
+  } catch (error) {
+    if (!isReadonlyCookieStoreError(error)) {
+      throw error;
+    }
+  }
+}
+
 export async function createClient() {
   const cookieStore = await cookies();
 
@@ -19,18 +34,10 @@ export async function createClient() {
     env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY,
     {
       cookies: {
-        getAll() {
-          return cookieStore.getAll();
-        },
+        getAll: () => cookieStore.getAll(),
         setAll(cookiesToSet) {
           for (const { name, value, options } of cookiesToSet) {
-            try {
-              cookieStore.set(name, value, options);
-            } catch (error) {
-              if (!isReadonlyCookieStoreError(error)) {
-                throw error;
-              }
-            }
+            setCookie(cookieStore, name, value, options);
           }
         },
       },

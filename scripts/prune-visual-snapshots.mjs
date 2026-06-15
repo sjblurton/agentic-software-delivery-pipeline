@@ -35,6 +35,7 @@ async function findSnapshotFiles(directoryPath, parent = "") {
 
   for (const entry of entries) {
     const relativePath = parent ? path.join(parent, entry.name) : entry.name;
+    const normalizedRelativePath = relativePath.split(path.sep).join("/");
 
     if (entry.isDirectory()) {
       snapshotFiles.push(
@@ -46,7 +47,7 @@ async function findSnapshotFiles(directoryPath, parent = "") {
       continue;
     }
 
-    snapshotFiles.push(relativePath);
+    snapshotFiles.push(normalizedRelativePath);
   }
 
   return snapshotFiles;

@@ -58,7 +58,5 @@ jobs:
         with:
           name: visual-regression-artifacts
           path: |
-            playwright-report
-            test-results
-            tests/visual
+            .vrt-images
             visual-snapshot-changes.txt

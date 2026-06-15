@@ -78,7 +78,9 @@ describe("auth server actions", () => {
       email: "person@example.com",
       password: "password123",
     });
-    expect(redirectMock).toHaveBeenCalledWith("/?auth=sign-in-success");
+    expect(redirectMock).toHaveBeenCalledWith(
+      "/dashboard?auth=sign-in-success",
+    );
   });
 
   it("returns an error state when sign-in fails at the provider seam", async () => {
@@ -119,7 +121,9 @@ describe("auth server actions", () => {
       email: "person@example.com",
       password: "password123",
     });
-    expect(redirectMock).toHaveBeenCalledWith("/?auth=sign-up-success");
+    expect(redirectMock).toHaveBeenCalledWith(
+      "/dashboard?auth=sign-up-success",
+    );
   });
 
   it("returns an error state when sign-up fails at the provider seam", async () => {

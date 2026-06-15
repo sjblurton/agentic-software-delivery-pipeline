@@ -10,7 +10,7 @@ export default defineConfig({
   testDir: "./tests/visual",
   snapshotPathTemplate:
     "{testDir}/{testFilePath}-snapshots/{arg}-{projectName}{ext}",
-  outputDir: "./test-results/visual",
+  outputDir: "./.vrt-images",
   forbidOnly: !!process.env.CI,
   retries: 0,
   reporter: process.env.CI ? [["github"], ["html", { open: "never" }]] : "list",

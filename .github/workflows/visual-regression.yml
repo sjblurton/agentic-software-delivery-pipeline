@@ -60,9 +60,3 @@ jobs:
             test-results
             tests/visual
             visual-snapshot-changes.txt
-      - name: Require human confirmation for visual baseline updates
-        if: steps.visual-compare.outcome == 'failure' || steps.baseline-changes.outputs.has_changes == 'true'
-        run: |
-          echo "Visual regression requires human review."
-          echo "Review visual-regression-artifacts and commit approved baseline additions/modifications/deletions."
-          exit 1

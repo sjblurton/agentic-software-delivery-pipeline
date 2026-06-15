@@ -1,10 +1,16 @@
 import { defineConfig, devices } from "@playwright/test";
 
+if (!process.env.CI) {
+  throw new Error(
+    "playwright.visual.config.ts is CI-only. Run visual regression in CI.",
+  );
+}
+
 const baseURL =
   process.env.PLAYWRIGHT_VISUAL_BASE_URL ?? "http://127.0.0.1:6006";
 const webServerCommand =
   process.env.PLAYWRIGHT_VISUAL_WEB_SERVER_COMMAND ??
-  "pnpm storybook --ci --port 6006 --host 127.0.0.1";
+  "python3 -m http.server 6006 --directory storybook-static --bind 127.0.0.1";
 
 export default defineConfig({
   testDir: "./tests/visual",
@@ -30,7 +36,7 @@ export default defineConfig({
   webServer: {
     command: webServerCommand,
     url: baseURL,
-    reuseExistingServer: !process.env.CI,
+    reuseExistingServer: false,
     timeout: 120_000,
   },
 });

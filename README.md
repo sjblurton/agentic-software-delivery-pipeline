@@ -46,7 +46,6 @@ Visit http://localhost:3000 to confirm the bootstrap baseline route renders.
 - `pnpm test` — run Vitest once
 - `pnpm test:watch` — run Vitest in watch mode
 - `pnpm test:e2e` — run the Playwright smoke test suite
-- `pnpm ci:visual` — run the Storybook visual regression gate used by CI
 - `pnpm storybook` — run Storybook dev server on port 6006
 - `pnpm build-storybook` — build Storybook static output
 - `pnpm db:generate` — generate Drizzle migration files

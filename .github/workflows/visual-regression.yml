@@ -10,8 +10,37 @@ permissions:
 
 jobs:
   visual-regression:
-    name: Visual regression placeholder
+    name: Storybook visual regression
     runs-on: ubuntu-latest
     steps:
-      - name: Placeholder
-        run: echo "Visual regression placeholder job (Storybook integration pending)."
+      - name: Checkout
+        uses: actions/checkout@v5
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 11.5.2
+      - name: Setup Node.js
+        uses: actions/setup-node@v5
+        with:
+          node-version-file: ".nvmrc"
+          cache: "pnpm"
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Build Storybook
+        run: pnpm build-storybook
+      - name: Install Playwright Chromium
+        run: pnpm exec playwright install --with-deps chromium
+      - name: Run visual regression
+        env:
+          PLAYWRIGHT_VISUAL_BASE_URL: http://127.0.0.1:6006
+          PLAYWRIGHT_VISUAL_WEB_SERVER_COMMAND: >-
+            python3 -m http.server 6006 --directory storybook-static --bind 127.0.0.1
+        run: pnpm test:visual
+      - name: Upload visual regression artifacts
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: visual-regression-artifacts
+          path: |
+            playwright-report
+            test-results

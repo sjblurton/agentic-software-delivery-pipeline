@@ -46,7 +46,8 @@ Visit http://localhost:3000 to confirm the bootstrap baseline route renders.
 - `pnpm test` — run Vitest once
 - `pnpm test:watch` — run Vitest in watch mode
 - `pnpm test:e2e` — run the Playwright smoke test suite
-- `pnpm test:e2e:ui` — open Playwright UI mode
+- `pnpm test:visual` — run Storybook visual regression tests against committed baselines
+- `pnpm test:visual:update` — update visual regression baseline screenshots
 - `pnpm storybook` — run Storybook dev server on port 6006
 - `pnpm build-storybook` — build Storybook static output
 - `pnpm db:generate` — generate Drizzle migration files
@@ -87,7 +88,8 @@ GitHub Actions runs automatically on every pull request targeting `main` using d
 4. **E2E** (`.github/workflows/e2e.yml`)
    - `pnpm test:e2e`
 5. **Visual Regression** (`.github/workflows/visual-regression.yml`)
-   - placeholder job (to be replaced when Storybook visual tests are wired)
+   - `pnpm build-storybook`
+   - `pnpm test:visual` (Playwright screenshot comparison against committed baselines)
 
 Each stage is chained from the previous stage through `workflow_run`, so a failed gate prevents downstream workflows from running.
 Vitest coverage is enforced in `vitest.config.ts` with minimum thresholds of **80% lines** and **80% branches**.

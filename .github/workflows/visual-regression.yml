@@ -46,7 +46,7 @@ jobs:
       - name: Detect baseline file changes
         id: baseline-changes
         run: |
-          git status --porcelain -- tests/visual > visual-snapshot-changes.txt
+          git status --porcelain -- .vrt-images > visual-snapshot-changes.txt
           if [ -s visual-snapshot-changes.txt ]; then
             echo "has_changes=true" >> "$GITHUB_OUTPUT"
           else

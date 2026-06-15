@@ -2,9 +2,7 @@ import { promises as fs } from "node:fs";
 import path from "node:path";
 
 const indexPath = path.resolve("storybook-static/index.json");
-const snapshotDir = path.resolve(
-  "tests/visual/storybook.visual.spec.ts-snapshots",
-);
+const snapshotDir = path.resolve(".vrt-images/storybook.visual.spec.ts");
 const visualProjectNames = ["desktop-chrome", "mobile-chrome"];
 
 function writeLine(message) {

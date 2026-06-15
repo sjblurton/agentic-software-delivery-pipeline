@@ -8,9 +8,8 @@ const webServerCommand =
 
 export default defineConfig({
   testDir: "./tests/visual",
-  snapshotPathTemplate:
-    "{testDir}/{testFilePath}-snapshots/{arg}-{projectName}{ext}",
-  outputDir: "./.vrt-images",
+  snapshotPathTemplate: ".vrt-images/{testFilePath}/{arg}-{projectName}{ext}",
+  outputDir: "./test-results/visual",
   forbidOnly: !!process.env.CI,
   retries: 0,
   reporter: process.env.CI ? [["github"], ["html", { open: "never" }]] : "list",

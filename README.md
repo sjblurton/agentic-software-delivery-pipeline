@@ -88,6 +88,7 @@ GitHub Actions runs automatically on every pull request targeting `main` using d
 5. **Visual Regression** (`.github/workflows/visual-regression.yml`)
    - `pnpm build-storybook`
    - `pnpm ci:visual` (Playwright screenshot comparison against committed baselines)
+   - Baselines are stored in `.vrt-images/`
    - Story screenshots are auto-discovered from Storybook `index.json` (`type: story`, `test` tag, excluding `skip-visual`)
    - On first-run or intentional UI changes, CI generates candidate baseline additions/updates, prunes obsolete baselines, and uploads artifacts for human review in the PR
 

@@ -2,6 +2,15 @@ import { env } from "@/env";
 import { createServerClient } from "@supabase/ssr";
 import { cookies } from "next/headers";
 
+function isReadonlyCookieStoreError(error: unknown): boolean {
+  return (
+    error instanceof Error &&
+    error.message.includes(
+      "Cookies can only be modified in a Server Action or Route Handler",
+    )
+  );
+}
+
 export async function createClient() {
   const cookieStore = await cookies();
 
@@ -15,7 +24,13 @@ export async function createClient() {
         },
         setAll(cookiesToSet) {
           for (const { name, value, options } of cookiesToSet) {
-            cookieStore.set(name, value, options);
+            try {
+              cookieStore.set(name, value, options);
+            } catch (error) {
+              if (!isReadonlyCookieStoreError(error)) {
+                throw error;
+              }
+            }
           }
         },
       },

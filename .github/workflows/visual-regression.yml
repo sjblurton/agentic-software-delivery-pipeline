@@ -41,6 +41,8 @@ jobs:
       - name: Generate candidate baseline updates
         if: steps.visual-compare.outcome == 'failure'
         run: pnpm ci:visual:update
+      - name: Prune obsolete baseline files
+        run: pnpm ci:visual:prune
       - name: Detect baseline file changes
         id: baseline-changes
         run: |

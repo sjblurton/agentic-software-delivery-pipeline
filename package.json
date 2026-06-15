@@ -15,6 +15,7 @@
     "test:e2e": "playwright test",
     "ci:visual": "playwright test -c playwright.visual.config.ts",
     "ci:visual:update": "playwright test -c playwright.visual.config.ts --update-snapshots",
+    "ci:visual:prune": "node scripts/prune-visual-snapshots.mjs",
     "test:watch": "vitest",
     "prepare": "husky",
     "storybook": "storybook dev -p 6006",

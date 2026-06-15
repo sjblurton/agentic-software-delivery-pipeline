@@ -88,7 +88,8 @@ GitHub Actions runs automatically on every pull request targeting `main` using d
 5. **Visual Regression** (`.github/workflows/visual-regression.yml`)
    - `pnpm build-storybook`
    - `pnpm ci:visual` (Playwright screenshot comparison against committed baselines)
-   - On first-run or intentional UI changes, CI generates candidate baseline additions/updates/removals as artifacts and fails until a human reviews and commits approved snapshot changes
+   - Story screenshots are auto-discovered from Storybook `index.json` (`type: story`, `test` tag, excluding `skip-visual`)
+   - On first-run or intentional UI changes, CI generates candidate baseline additions/updates, prunes obsolete baselines, and uploads artifacts for human review in the PR
 
 Each stage is chained from the previous stage through `workflow_run`, so a failed gate prevents downstream workflows from running.
 Vitest coverage is enforced in `vitest.config.ts` with minimum thresholds of **80% lines** and **80% branches**.

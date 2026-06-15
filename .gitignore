@@ -41,7 +41,6 @@ yarn-error.log*
 
 # storybook
 /storybook-static
-/tests/visual/storybook.visual.spec.ts-snapshots/**
 
 # typescript
 *.tsbuildinfo

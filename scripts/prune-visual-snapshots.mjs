@@ -3,7 +3,7 @@ import path from "node:path";
 
 const indexPath = path.resolve("storybook-static/index.json");
 const snapshotDir = path.resolve(
-  "tests/visual/auth-form-view.visual.spec.ts-snapshots",
+  "tests/visual/storybook.visual.spec.ts-snapshots",
 );
 
 function writeLine(message) {

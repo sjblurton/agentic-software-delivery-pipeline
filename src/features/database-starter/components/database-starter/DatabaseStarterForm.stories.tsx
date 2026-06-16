@@ -26,3 +26,20 @@ export const Idle: Story = {
     await expect(canvas.getByRole("button", { name: "Add row" })).toBeEnabled();
   },
 };
+
+export const WithErrors: Story = {
+  args: {
+    fieldErrors: {
+      name: ["Please enter a name."],
+    },
+    formStatus: "error",
+    formMessage: "Database temporarily unavailable.",
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await expect(canvas.getByText("Please enter a name.")).toBeInTheDocument();
+    await expect(
+      canvas.getByText("Database temporarily unavailable."),
+    ).toBeInTheDocument();
+  },
+};

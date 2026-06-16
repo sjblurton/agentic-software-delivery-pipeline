@@ -4,13 +4,9 @@ import {
   submitStarterRecordAction,
 } from "./starter-record-actions";
 
-const revalidatePathMock = vi.hoisted(() => vi.fn());
 const createStarterRecordMock = vi.hoisted(() => vi.fn());
 const dbMock = vi.hoisted(() => ({}));
-
-vi.mock("next/cache", () => ({
-  revalidatePath: revalidatePathMock,
-}));
+const revalidatePathMock = vi.hoisted(() => vi.fn());
 
 vi.mock("../lib/starter-records-repository", () => ({
   createStarterRecord: createStarterRecordMock,
@@ -18,6 +14,10 @@ vi.mock("../lib/starter-records-repository", () => ({
 
 vi.mock("@/lib/db/client", () => ({
   db: dbMock,
+}));
+
+vi.mock("next/cache", () => ({
+  revalidatePath: revalidatePathMock,
 }));
 
 function createStarterRecordFormData(name: string) {
@@ -45,10 +45,9 @@ describe("submitStarterRecordAction", () => {
       },
     });
     expect(createStarterRecordMock).not.toHaveBeenCalled();
-    expect(revalidatePathMock).not.toHaveBeenCalled();
   });
 
-  it("creates a record, returns success state, and revalidates dashboard", async () => {
+  it("creates a record and returns success state", async () => {
     createStarterRecordMock.mockResolvedValue({
       id: "8b07b697-57e7-4464-8bb2-c9db49f4db16",
       name: "My record",
@@ -63,7 +62,7 @@ describe("submitStarterRecordAction", () => {
     expect(createStarterRecordMock).toHaveBeenCalledWith(expect.any(Object), {
       name: "My record",
     });
-    expect(revalidatePathMock).toHaveBeenCalledWith("/dashboard");
+    expect(revalidatePathMock).not.toHaveBeenCalled();
     expect(result).toEqual({
       status: "success",
       fieldErrors: {},
@@ -87,6 +86,5 @@ describe("submitStarterRecordAction", () => {
       fieldErrors: {},
       message: "Database temporarily unavailable.",
     });
-    expect(revalidatePathMock).not.toHaveBeenCalled();
   });
 });

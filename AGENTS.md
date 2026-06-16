@@ -21,12 +21,3 @@ Follow the red-green-refactor loop:
 Do not write implementation files speculatively and fill in tests afterwards. If you catch yourself creating a source file before a test file, stop and delete it.
 
 Invoke the `tdd` skill at the start of any task that involves writing new code — it contains detailed guidance on test design, mocking boundaries, and interface design.
-
-### UI component architecture rule
-
-For all new UI components, use component co-location and story-required completion:
-
-- Place implementation and story in the same folder (for example `button/button.tsx` and `button/button.stories.tsx`).
-- Do not treat a new UI component as complete unless at least one Storybook story is included.
-
-Reference: `docs/adr/0011-component-co-location-and-story-required-for-new-ui-components.md`.

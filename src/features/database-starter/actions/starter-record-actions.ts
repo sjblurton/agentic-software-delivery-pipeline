@@ -26,7 +26,20 @@ export async function submitStarterRecordAction(
     };
   }
 
-  const createdStarterRecord = await createStarterRecord(db, parsedInput.input);
+  let createdStarterRecord;
+  try {
+    createdStarterRecord = await createStarterRecord(db, parsedInput.input);
+  } catch (error) {
+    if (error instanceof Error) {
+      return {
+        status: "error",
+        fieldErrors: {},
+        message: error.message,
+      };
+    }
+
+    throw error;
+  }
 
   revalidatePath("/dashboard");
 

@@ -36,6 +36,8 @@ describe("listStarterRecords", () => {
     expect(fromMock).toHaveBeenCalled();
     expect(orderByMock).toHaveBeenCalledTimes(1);
     expect(orderByMock.mock.calls[0]).toHaveLength(2);
+    expect(orderByMock.mock.calls[0][0].queryChunks[1].name).toBe("created_at");
+    expect(orderByMock.mock.calls[0][1].queryChunks[1].name).toBe("id");
   });
 
   it("creates a starter record and returns the inserted row", async () => {

@@ -71,4 +71,22 @@ describe("submitStarterRecordAction", () => {
       data: { recordId: "8b07b697-57e7-4464-8bb2-c9db49f4db16" },
     });
   });
+
+  it("returns an actionable error state when record creation fails", async () => {
+    createStarterRecordMock.mockRejectedValue(
+      new Error("Database temporarily unavailable."),
+    );
+
+    const result = await submitStarterRecordAction(
+      initialStarterRecordActionState,
+      createStarterRecordFormData("My record"),
+    );
+
+    expect(result).toEqual({
+      status: "error",
+      fieldErrors: {},
+      message: "Database temporarily unavailable.",
+    });
+    expect(revalidatePathMock).not.toHaveBeenCalled();
+  });
 });

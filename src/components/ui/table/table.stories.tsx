@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/nextjs";
+import { expect, within } from "storybook/test";
 import {
   Table,
   TableBody,
@@ -39,4 +40,13 @@ export const Default: Story = {
       </Table>
     </div>
   ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await expect(
+      canvas.getByRole("columnheader", { name: "Name" }),
+    ).toBeVisible();
+    await expect(
+      canvas.getByRole("cell", { name: "Starter row" }),
+    ).toBeInTheDocument();
+  },
 };

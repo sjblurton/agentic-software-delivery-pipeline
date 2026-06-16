@@ -62,12 +62,6 @@ Ralph Loop does not merge autonomously. It runs until all selected issues are in
 - Structured artefacts reduce hallucination risk versus free-form generation.
 - The system is designed for constrained autonomy, with explicit validation boundaries.
 
-## UI component architecture rule
-
-- All new UI components must be co-located with their Storybook story in the same folder.
-- A new UI component is not complete without at least one story.
-- Reference ADR: `docs/adr/0011-component-co-location-and-story-required-for-new-ui-components.md`.
-
 ## Implementation Layer
 
 Supporting infrastructure (execution substrate):

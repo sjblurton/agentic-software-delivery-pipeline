@@ -2,6 +2,11 @@
 
 A GitHub template encoding the correct architectural decisions, tooling, and conventions for a Next.js + Supabase project once, so they never need to be repeated.
 
+## Documentation boundaries
+
+- `README.md` describes what the project is (portfolio/CV-facing overview), not implementation rules.
+- Implementation rules and engineering conventions belong in `CONTEXT.md`, `AGENTS.md`, and ADRs.
+
 ## Language
 
 **Vertical Slice**:

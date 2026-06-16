@@ -1,20 +1,15 @@
 import type { Meta, StoryObj } from "@storybook/nextjs";
 import { expect, within } from "storybook/test";
-import { DatabaseStarterView } from "./database-starter-view";
+import { DatabaseStarterTable } from "./database-starter-table";
 
 const meta = {
-  title: "Features/DatabaseStarter/DatabaseStarterView",
-  component: DatabaseStarterView,
+  title: "Features/DatabaseStarter/DatabaseStarterTable",
+  component: DatabaseStarterTable,
   parameters: {
     layout: "padded",
   },
   tags: ["autodocs"],
-  args: {
-    formFieldErrors: {},
-    formStatus: "idle",
-    isSubmitting: false,
-  },
-} satisfies Meta<typeof DatabaseStarterView>;
+} satisfies Meta<typeof DatabaseStarterTable>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
@@ -49,7 +44,7 @@ export const PopulatedState: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     await expect(
-      canvas.getByRole("row", { name: /starter row a/i }),
+      canvas.getByRole("cell", { name: "Starter row A" }),
     ).toBeVisible();
     await expect(canvas.getByText("Starter row B")).toBeInTheDocument();
   },

@@ -4,8 +4,8 @@ import { useActionState, useEffect, useRef } from "react";
 import {
   initialStarterRecordActionState,
   submitStarterRecordAction,
-} from "../actions/starter-record-actions";
-import { DatabaseStarterView } from "./database-starter-view";
+} from "../../actions/starter-record-actions";
+import { DatabaseStarter } from "./database-starter";
 
 type StarterRecordRow = {
   id: string;
@@ -43,7 +43,7 @@ export function DatabaseStarterContainer({
   }, [onSuccessfulCreate, state]);
 
   return (
-    <DatabaseStarterView
+    <DatabaseStarter
       records={records}
       formFieldErrors={state.fieldErrors}
       formStatus={state.status}

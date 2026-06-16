@@ -19,15 +19,11 @@ vi.mock("@/lib/db/client", () => ({
 }));
 
 vi.mock(
-  "@/features/database-starter/components/database-starter-page-shell",
+  "@/features/database-starter/components/database-starter/database-starter-page-shell",
   () => ({
     DatabaseStarterPageShell: pageShellMock,
   }),
 );
-
-vi.mock("@/features/auth/components/sign-out-button", () => ({
-  SignOutButton: () => <button type="button">Sign out</button>,
-}));
 
 import DatabaseStarterPage from "./page";
 

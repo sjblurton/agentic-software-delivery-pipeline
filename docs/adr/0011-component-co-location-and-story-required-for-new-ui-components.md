@@ -2,7 +2,7 @@
 
 All new UI components must be co-located by default: implementation and Storybook story live in the same component folder (for example `button/button.tsx` and `button/button.stories.tsx`).
 
-A new UI component is not complete unless at least one Storybook story is added in that same folder. This rule applies to all new Atoms, Molecules, and Organisms added to the template.
+A new UI component is not complete unless at least one Storybook story is added in that same folder. This rule applies to all new UI components added to the template, including Atoms, Molecules, and Organisms.
 
 This aligns authoring structure with Storybook and visual regression CI, which already consume stories as the source of UI state coverage and screenshot baselines.
 

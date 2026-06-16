@@ -68,4 +68,41 @@ describe("createClient cookies bridge", () => {
 
     await expect(createClient()).rejects.toThrow("unexpected write failure");
   });
+
+  it("ignores readonly cookie-store errors from async cookie writes", async () => {
+    cookieStoreSetMock.mockRejectedValue(
+      new Error(
+        "Cookies can only be modified in a Server Action or Route Handler.",
+      ),
+    );
+
+    const client = { auth: {} };
+    createServerClientMock.mockImplementation((_url, _key, options) => {
+      options.cookies.setAll([
+        { name: "sb-test", value: "token", options: {} },
+      ]);
+      return client;
+    });
+
+    await expect(createClient()).resolves.toBe(client);
+  });
+
+  it("ignores readonly cookie-store errors thrown as non-Error objects", async () => {
+    cookieStoreSetMock.mockImplementation(() => {
+      throw {
+        message:
+          "Cookies can only be modified in a Server Action or Route Handler. Read more: https://nextjs.org/docs/app/api-reference/functions/cookies#options",
+      };
+    });
+
+    const client = { auth: {} };
+    createServerClientMock.mockImplementation((_url, _key, options) => {
+      options.cookies.setAll([
+        { name: "sb-test", value: "token", options: {} },
+      ]);
+      return client;
+    });
+
+    await expect(createClient()).resolves.toBe(client);
+  });
 });

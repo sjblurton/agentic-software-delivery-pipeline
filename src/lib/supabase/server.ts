@@ -2,28 +2,12 @@ import { env } from "@/env";
 import { createServerClient } from "@supabase/ssr";
 import { cookies } from "next/headers";
 
-function getErrorMessage(error: unknown): string {
-  if (error instanceof Error) {
-    return error.message;
-  }
-
-  if (
-    typeof error === "object" &&
-    error !== null &&
-    "message" in error &&
-    typeof error.message === "string"
-  ) {
-    return error.message;
-  }
-
-  return "";
-}
-
 function isReadonlyCookieStoreError(error: unknown): boolean {
-  const message = getErrorMessage(error);
-
-  return message.includes(
-    "Cookies can only be modified in a Server Action or Route Handler",
+  return (
+    error instanceof Error &&
+    error.message.includes(
+      "Cookies can only be modified in a Server Action or Route Handler",
+    )
   );
 }
 

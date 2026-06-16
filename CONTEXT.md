@@ -2,6 +2,11 @@
 
 A GitHub template encoding the correct architectural decisions, tooling, and conventions for a Next.js + Supabase project once, so they never need to be repeated.
 
+## Documentation boundaries
+
+- `README.md` describes what the project is (portfolio/CV-facing overview), not implementation rules.
+- Implementation rules and engineering conventions belong in `CONTEXT.md`, `AGENTS.md`, and ADRs.
+
 ## Language
 
 **Vertical Slice**:
@@ -49,7 +54,7 @@ A Storybook story file that renders a Presentation Component in isolation. Each 
 _Avoid_: example, demo, showcase
 
 **Component Co-location**:
-The file-structure convention where each UI component lives in its own folder with its implementation and story side-by-side (for example `component-name/component-name.tsx` and `component-name.stories.tsx`).
+The file-structure convention where each UI component lives in its own folder with its implementation and story side-by-side (for example `component-name/component-name.tsx` and `component-name/component-name.stories.tsx`). This is mandatory for all new UI components.
 _Avoid_: flat component files, separate story tree
 
 **FormField**:

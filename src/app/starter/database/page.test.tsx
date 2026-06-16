@@ -19,7 +19,7 @@ vi.mock("@/lib/db/client", () => ({
 }));
 
 vi.mock(
-  "@/features/database-starter/components/database-starter/database-starter-page-shell",
+  "@/features/database-starter/components/database-starter-page/database-starter-page-shell",
   () => ({
     DatabaseStarterPageShell: pageShellMock,
   }),

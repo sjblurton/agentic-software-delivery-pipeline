@@ -11,7 +11,7 @@ vi.mock("next/navigation", () => ({
   }),
 }));
 
-vi.mock("./database-starter-container", () => ({
+vi.mock("../database-starter/database-starter-container", () => ({
   DatabaseStarterContainer: databaseStarterContainerMock,
 }));
 

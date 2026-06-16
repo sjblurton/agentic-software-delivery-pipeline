@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useCallback } from "react";
-import { DatabaseStarterContainer } from "./database-starter-container";
+import { DatabaseStarterContainer } from "../database-starter/database-starter-container";
 
 type StarterRecordRow = {
   id: string;

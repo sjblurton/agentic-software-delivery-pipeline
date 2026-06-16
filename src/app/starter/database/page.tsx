@@ -1,5 +1,5 @@
 import { requireAuth } from "@/features/auth/lib/route-guards";
-import { DatabaseStarterPageShell } from "@/features/database-starter/components/database-starter/database-starter-page-shell";
+import { DatabaseStarterPageShell } from "@/features/database-starter/components/database-starter-page/database-starter-page-shell";
 import { listStarterRecords } from "@/features/database-starter/lib/starter-records-repository";
 import { db } from "@/lib/db/client";
 

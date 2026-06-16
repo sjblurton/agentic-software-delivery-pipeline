@@ -1,0 +1,114 @@
+{
+  "_meta": {
+    "columns": {},
+    "schemas": {},
+    "tables": {}
+  },
+  "dialect": "postgresql",
+  "enums": {},
+  "id": "0f58ce3b-dcc0-4e41-ac50-abda304d78d5",
+  "policies": {},
+  "prevId": "e8c62d2e-3caa-41dd-b994-8721322fbcdb",
+  "roles": {},
+  "schemas": {},
+  "sequences": {},
+  "tables": {
+    "auth.users": {
+      "checkConstraints": {},
+      "columns": {
+        "id": {
+          "name": "id",
+          "notNull": true,
+          "primaryKey": true,
+          "type": "uuid"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "foreignKeys": {},
+      "indexes": {},
+      "isRLSEnabled": false,
+      "name": "users",
+      "policies": {},
+      "schema": "auth",
+      "uniqueConstraints": {}
+    },
+    "public.profiles": {
+      "checkConstraints": {},
+      "columns": {
+        "created_at": {
+          "default": "now()",
+          "name": "created_at",
+          "notNull": true,
+          "primaryKey": false,
+          "type": "timestamp with time zone"
+        },
+        "display_name": {
+          "name": "display_name",
+          "notNull": true,
+          "primaryKey": false,
+          "type": "text"
+        },
+        "id": {
+          "name": "id",
+          "notNull": true,
+          "primaryKey": true,
+          "type": "uuid"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "foreignKeys": {
+        "profiles_id_users_id_fk": {
+          "columnsFrom": ["id"],
+          "columnsTo": ["id"],
+          "name": "profiles_id_users_id_fk",
+          "onDelete": "cascade",
+          "onUpdate": "no action",
+          "schemaTo": "auth",
+          "tableFrom": "profiles",
+          "tableTo": "users"
+        }
+      },
+      "indexes": {},
+      "isRLSEnabled": false,
+      "name": "profiles",
+      "policies": {},
+      "schema": "",
+      "uniqueConstraints": {}
+    },
+    "public.starter_records": {
+      "checkConstraints": {},
+      "columns": {
+        "created_at": {
+          "default": "now()",
+          "name": "created_at",
+          "notNull": true,
+          "primaryKey": false,
+          "type": "timestamp with time zone"
+        },
+        "id": {
+          "default": "gen_random_uuid()",
+          "name": "id",
+          "notNull": true,
+          "primaryKey": true,
+          "type": "uuid"
+        },
+        "name": {
+          "name": "name",
+          "notNull": true,
+          "primaryKey": false,
+          "type": "text"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "foreignKeys": {},
+      "indexes": {},
+      "isRLSEnabled": false,
+      "name": "starter_records",
+      "policies": {},
+      "schema": "",
+      "uniqueConstraints": {}
+    }
+  },
+  "version": "7",
+  "views": {}
+}

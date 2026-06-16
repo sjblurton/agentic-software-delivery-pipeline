@@ -19,3 +19,14 @@ export const profiles = pgTable("profiles", {
 
 export type Profile = typeof profiles.$inferSelect;
 export type NewProfile = typeof profiles.$inferInsert;
+
+export const starterRecords = pgTable("starter_records", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  name: text("name").notNull(),
+  createdAt: timestamp("created_at", { withTimezone: true })
+    .notNull()
+    .default(sql`now()`),
+});
+
+export type StarterRecord = typeof starterRecords.$inferSelect;
+export type NewStarterRecord = typeof starterRecords.$inferInsert;

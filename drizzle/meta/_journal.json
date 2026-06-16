@@ -7,6 +7,13 @@
       "tag": "0000_right_gargoyle",
       "version": "7",
       "when": 1781099764499
+    },
+    {
+      "breakpoints": true,
+      "idx": 1,
+      "tag": "0001_hesitant_junta",
+      "version": "7",
+      "when": 1781601181290
     }
   ],
   "version": "7"

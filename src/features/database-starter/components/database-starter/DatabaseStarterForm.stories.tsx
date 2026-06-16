@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/nextjs";
 import { expect, within } from "storybook/test";
-import { DatabaseStarterForm } from "./database-starter-form";
+import { DatabaseStarterForm } from "./DatabaseStarterForm";
 
 const meta = {
   title: "Features/DatabaseStarter/DatabaseStarterForm",

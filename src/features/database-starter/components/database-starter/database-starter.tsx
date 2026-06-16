@@ -1,6 +1,6 @@
 import type { FormActionState } from "@/features/forms/lib/form-action-state";
-import { DatabaseStarterForm } from "./database-starter-form";
-import { DatabaseStarterTable } from "./database-starter-table";
+import { DatabaseStarterForm } from "./DatabaseStarterForm";
+import { DatabaseStarterTable } from "./DatabaseStarterTable";
 
 type StarterRecordRow = {
   id: string;

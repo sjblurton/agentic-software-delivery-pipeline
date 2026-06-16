@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/nextjs";
 import { expect, within } from "storybook/test";
-import { DatabaseStarterTable } from "./database-starter-table";
+import { DatabaseStarterTable } from "./DatabaseStarterTable";
 
 const meta = {
   title: "Features/DatabaseStarter/DatabaseStarterTable",

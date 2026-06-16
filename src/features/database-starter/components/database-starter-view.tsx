@@ -90,14 +90,20 @@ export function DatabaseStarterView({
           <TableBody>
             {records.length === 0 ? (
               <TableRow>
-                <TableCell colSpan={2}>
+                <TableCell
+                  className="whitespace-normal break-words"
+                  colSpan={2}
+                >
+                  {/* issue #60: replace with a reusable TruncatedText component. */}
                   No records yet. Add one to verify database writes.
                 </TableCell>
               </TableRow>
             ) : (
               records.map((record) => (
                 <TableRow key={record.id}>
-                  <TableCell>{record.name}</TableCell>
+                  <TableCell className="whitespace-normal break-words">
+                    {record.name}
+                  </TableCell>
                   <TableCell>
                     {formatCreatedAtLabel(record.createdAt)}
                   </TableCell>

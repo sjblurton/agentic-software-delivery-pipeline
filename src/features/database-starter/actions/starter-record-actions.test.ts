@@ -6,7 +6,6 @@ import {
 
 const createStarterRecordMock = vi.hoisted(() => vi.fn());
 const dbMock = vi.hoisted(() => ({}));
-const revalidatePathMock = vi.hoisted(() => vi.fn());
 
 vi.mock("../lib/starter-records-repository", () => ({
   createStarterRecord: createStarterRecordMock,
@@ -14,10 +13,6 @@ vi.mock("../lib/starter-records-repository", () => ({
 
 vi.mock("@/lib/db/client", () => ({
   db: dbMock,
-}));
-
-vi.mock("next/cache", () => ({
-  revalidatePath: revalidatePathMock,
 }));
 
 function createStarterRecordFormData(name: string) {
@@ -29,7 +24,6 @@ function createStarterRecordFormData(name: string) {
 describe("submitStarterRecordAction", () => {
   beforeEach(() => {
     createStarterRecordMock.mockReset();
-    revalidatePathMock.mockReset();
   });
 
   it("returns field errors when the name is blank at the boundary", async () => {
@@ -62,7 +56,6 @@ describe("submitStarterRecordAction", () => {
     expect(createStarterRecordMock).toHaveBeenCalledWith(expect.any(Object), {
       name: "My record",
     });
-    expect(revalidatePathMock).not.toHaveBeenCalled();
     expect(result).toEqual({
       status: "success",
       fieldErrors: {},

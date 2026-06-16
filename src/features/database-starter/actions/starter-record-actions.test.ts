@@ -6,6 +6,7 @@ import {
 
 const createStarterRecordMock = vi.hoisted(() => vi.fn());
 const dbMock = vi.hoisted(() => ({}));
+const requireAuthMock = vi.hoisted(() => vi.fn());
 
 vi.mock("../lib/starter-records-repository", () => ({
   createStarterRecord: createStarterRecordMock,
@@ -13,6 +14,10 @@ vi.mock("../lib/starter-records-repository", () => ({
 
 vi.mock("@/lib/db/client", () => ({
   db: dbMock,
+}));
+
+vi.mock("@/features/auth/lib/route-guards", () => ({
+  requireAuth: requireAuthMock,
 }));
 
 function createStarterRecordFormData(name: string) {
@@ -24,6 +29,11 @@ function createStarterRecordFormData(name: string) {
 describe("submitStarterRecordAction", () => {
   beforeEach(() => {
     createStarterRecordMock.mockReset();
+    requireAuthMock.mockReset();
+    requireAuthMock.mockResolvedValue({
+      id: "user-1",
+      email: "person@example.com",
+    });
   });
 
   it("returns field errors when the name is blank at the boundary", async () => {
@@ -38,6 +48,7 @@ describe("submitStarterRecordAction", () => {
         name: ["Please enter a name."],
       },
     });
+    expect(requireAuthMock).toHaveBeenCalledTimes(1);
     expect(createStarterRecordMock).not.toHaveBeenCalled();
   });
 
@@ -56,6 +67,7 @@ describe("submitStarterRecordAction", () => {
     expect(createStarterRecordMock).toHaveBeenCalledWith(expect.any(Object), {
       name: "My record",
     });
+    expect(requireAuthMock).toHaveBeenCalledTimes(1);
     expect(result).toEqual({
       status: "success",
       fieldErrors: {},
@@ -79,5 +91,17 @@ describe("submitStarterRecordAction", () => {
       fieldErrors: {},
       message: "Database temporarily unavailable.",
     });
+  });
+
+  it("requires authentication before attempting record creation", async () => {
+    requireAuthMock.mockRejectedValue(new Error("Unauthorized"));
+
+    await expect(
+      submitStarterRecordAction(
+        initialStarterRecordActionState,
+        createStarterRecordFormData("My record"),
+      ),
+    ).rejects.toThrow("Unauthorized");
+    expect(createStarterRecordMock).not.toHaveBeenCalled();
   });
 });

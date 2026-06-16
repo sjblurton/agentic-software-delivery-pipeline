@@ -1,6 +1,7 @@
 "use server";
 
 import type { FormActionState } from "@/features/forms/lib/form-action-state";
+import { requireAuth } from "@/features/auth/lib/route-guards";
 import { db } from "@/lib/db/client";
 import { createStarterRecord } from "../lib/starter-records-repository";
 import { parseStarterRecordInput } from "../lib/starter-record-schemas";
@@ -16,6 +17,7 @@ export async function submitStarterRecordAction(
   _previousState: FormActionState<{ recordId: string }>,
   formData: FormData,
 ): Promise<FormActionState<{ recordId: string }>> {
+  await requireAuth();
   const parsedInput = parseStarterRecordInput(formData);
 
   if (!parsedInput.ok) {

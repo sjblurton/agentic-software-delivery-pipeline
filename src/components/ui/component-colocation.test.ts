@@ -3,7 +3,7 @@ import { join } from "node:path";
 import { describe, expect, it } from "vitest";
 
 const uiRoot = join(process.cwd(), "src", "components", "ui");
-const atoms = ["button", "input", "card"] as const;
+const atoms = ["button", "input", "card", "table"] as const;
 
 describe("UI atom co-location", () => {
   it("stores each atom implementation and story in a co-located folder", () => {

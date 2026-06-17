@@ -3,7 +3,7 @@ import { Input } from "@/components/ui/input/input";
 import type { FormActionState } from "@/features/forms/lib/form-action-state";
 
 type DatabaseStarterFormProps = {
-  fieldErrors: FormActionState["fieldErrors"];
+  fieldErrors?: FormActionState["fieldErrors"];
   formStatus: FormActionState["status"];
   formMessage?: string;
   isSubmitting: boolean;
@@ -11,7 +11,7 @@ type DatabaseStarterFormProps = {
 };
 
 export function DatabaseStarterForm({
-  fieldErrors,
+  fieldErrors = {},
   formStatus,
   formMessage,
   isSubmitting,

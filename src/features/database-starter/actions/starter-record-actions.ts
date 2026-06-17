@@ -6,13 +6,6 @@ import { db } from "@/lib/db/client";
 import { createStarterRecord } from "../lib/starter-records-repository";
 import { parseStarterRecordInput } from "../lib/starter-record-schemas";
 
-export const initialStarterRecordActionState: FormActionState<{
-  recordId: string;
-}> = {
-  status: "idle",
-  fieldErrors: {},
-};
-
 export async function submitStarterRecordAction(
   _previousState: FormActionState<{ recordId: string }>,
   formData: FormData,

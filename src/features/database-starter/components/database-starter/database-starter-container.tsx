@@ -1,10 +1,8 @@
 "use client";
 
 import { useActionState, useEffect, useRef } from "react";
-import {
-  initialStarterRecordActionState,
-  submitStarterRecordAction,
-} from "../../actions/starter-record-actions";
+import { initialStarterRecordActionState } from "../../actions/starter-record-action-state";
+import { submitStarterRecordAction } from "../../actions/starter-record-actions";
 import { DatabaseStarter } from "./database-starter";
 
 type StarterRecordRow = {

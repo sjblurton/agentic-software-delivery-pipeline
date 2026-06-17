@@ -1,8 +1,6 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import {
-  initialStarterRecordActionState,
-  submitStarterRecordAction,
-} from "./starter-record-actions";
+import { initialStarterRecordActionState } from "./starter-record-action-state";
+import { submitStarterRecordAction } from "./starter-record-actions";
 
 const createStarterRecordMock = vi.hoisted(() => vi.fn());
 const dbMock = vi.hoisted(() => ({}));

@@ -71,6 +71,23 @@ Supporting infrastructure (execution substrate):
 - Vitest + Playwright + Storybook
 - GitHub Actions
 
+## Database starter slice (local + CI Docker flow)
+
+The `/starter/database` route is a thin vertical slice for Drizzle + Postgres:
+it requires auth, writes a row, and reads rows back from `starter_records`.
+
+Local setup uses Supabase Docker Postgres via `DATABASE_URL` in `.env.local`
+(see `.env.example`, default local Docker URL is `127.0.0.1:54322`):
+
+1. Start local services (`supabase start`) and set `DATABASE_URL`.
+2. Apply schema with `pnpm db:push`.
+3. Run the app (`pnpm dev`) and use `/starter/database`.
+
+CI e2e runs in the existing `.github/workflows/e2e.yml` pipeline with a Docker
+Postgres service, prepares the `auth` schema/table needed by Drizzle references,
+applies schema, then executes Playwright in both logged-in and logged-out auth
+modes.
+
 ## Philosophy
 
 Structured AI-assisted engineering: decompose work, generate explicit artefacts, validate continuously, and integrate under human control.

@@ -1,6 +1,9 @@
+import Link from "next/link";
+import { Button } from "@/components/ui/button/button";
 import { AuthStatusToast } from "@/features/auth/components/auth-status-toast";
 import { SignOutButton } from "@/features/auth/components/sign-out-button";
 import { BootstrapStatus } from "@/features/bootstrap/components/bootstrap-status";
+import { Database } from "lucide-react";
 
 type DashboardPageProps = {
   searchParams?: Promise<{
@@ -22,6 +25,14 @@ export default async function DashboardPage({
         <SignOutButton />
       </div>
       <BootstrapStatus />
+      <div className="mt-6">
+        <Link href="/starter/database">
+          <Button className="gap-2">
+            <Database className="h-4 w-4" />
+            View Sample Database
+          </Button>
+        </Link>
+      </div>
     </main>
   );
 }

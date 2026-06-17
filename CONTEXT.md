@@ -6,7 +6,6 @@ A GitHub template encoding the correct architectural decisions, tooling, and con
 
 - `README.md` describes what the project is (portfolio/CV-facing overview), not implementation rules.
 - Implementation rules and engineering conventions belong in `CONTEXT.md`, `AGENTS.md`, and ADRs.
-- Database Starter Slice implementation flow guidance (local/CI Postgres + Drizzle commands) belongs in `CONTEXT.md`/ADRs, not `README.md`.
 
 ## Language
 

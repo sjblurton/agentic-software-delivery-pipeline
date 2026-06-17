@@ -51,8 +51,12 @@ jobs:
           cache: "pnpm"
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
+      - name: Prepare auth schema for Drizzle references
+        run: |
+          psql postgresql://postgres:postgres@127.0.0.1:5432/app_test -c "CREATE SCHEMA IF NOT EXISTS auth;"
+          psql postgresql://postgres:postgres@127.0.0.1:5432/app_test -c "CREATE TABLE IF NOT EXISTS auth.users (id uuid PRIMARY KEY);"
       - name: Apply database schema
-        run: pnpm db:push
+        run: pnpm drizzle-kit push --force
       - name: Install Playwright Chromium
         run: pnpm exec playwright install --with-deps chromium
       - name: Run e2e suite

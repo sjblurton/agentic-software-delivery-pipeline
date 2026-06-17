@@ -71,16 +71,6 @@ Supporting infrastructure (execution substrate):
 - Vitest + Playwright + Storybook
 - GitHub Actions
 
-## Database starter slice (local + CI Docker flow)
-
-The `/starter/database` route is the template’s Drizzle + Postgres vertical
-slice (auth-gated create/read with persisted rows). Local Docker flow uses
-`DATABASE_URL` from `.env.local` (see `.env.example`) and applies schema via
-`pnpm db:push`. CI e2e uses the existing `.github/workflows/e2e.yml` Docker
-Postgres service, prepares `auth.users` for Drizzle references, applies schema
-with `pnpm drizzle-kit push --force`, then runs Playwright in logged-in and
-logged-out modes.
-
 ## Philosophy
 
 Structured AI-assisted engineering: decompose work, generate explicit artefacts, validate continuously, and integrate under human control.

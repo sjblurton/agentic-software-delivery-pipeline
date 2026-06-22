@@ -20,9 +20,6 @@ describe("FormField integration", () => {
         defaultValues: {
           email: "",
         },
-        context: {
-          schema: signInSchema,
-        },
       });
 
       return (

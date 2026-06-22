@@ -3,7 +3,6 @@
 import { Input } from "@/components/ui/input/input";
 import type { ComponentProps } from "react";
 import { useController, useFormContext } from "react-hook-form";
-import type { ZodTypeAny } from "zod";
 
 type FormFieldProps = {
   label: string;
@@ -23,16 +22,6 @@ export function FormField({
     control,
     name,
   });
-  const schema = (
-    control as {
-      _options?: {
-        context?: {
-          schema?: ZodTypeAny;
-        };
-      };
-    }
-  )._options?.context?.schema;
-  const isRequired = isFieldRequired(schema, name);
   const firstErrorMessage =
     fieldState.error?.message ??
     (fieldState.error?.types
@@ -50,7 +39,6 @@ export function FormField({
         type={type}
         {...field}
         {...inputProps}
-        required={isRequired}
         aria-invalid={Boolean(firstErrorMessage)}
       />
       {firstErrorMessage ? (
@@ -60,134 +48,4 @@ export function FormField({
       ) : null}
     </div>
   );
-}
-
-function isFieldRequired(
-  schema: ZodTypeAny | undefined,
-  path: string,
-): boolean {
-  if (!schema) {
-    return false;
-  }
-
-  const fieldSchema = getSchemaAtPath(schema, path);
-  if (!fieldSchema) {
-    return false;
-  }
-
-  if (typeof fieldSchema.isOptional === "function") {
-    return !fieldSchema.isOptional();
-  }
-
-  return true;
-}
-
-function getSchemaAtPath(
-  rootSchema: ZodTypeAny,
-  path: string,
-): ZodTypeAny | undefined {
-  const pathSegments = path.split(".");
-  let currentSchema: ZodTypeAny | undefined = rootSchema;
-
-  for (const segment of pathSegments) {
-    const unwrappedSchema = unwrapSchema(currentSchema);
-
-    if (isArrayIndex(segment)) {
-      currentSchema = getArrayElementSchema(unwrappedSchema);
-      continue;
-    }
-
-    const objectShape = getObjectShape(unwrappedSchema);
-    if (!objectShape || !(segment in objectShape)) {
-      return undefined;
-    }
-
-    currentSchema = objectShape[segment];
-  }
-
-  return currentSchema;
-}
-
-function isArrayIndex(segment: string): boolean {
-  return Number.isInteger(Number(segment));
-}
-
-function getObjectShape(
-  schema: ZodTypeAny | undefined,
-): Record<string, ZodTypeAny> | undefined {
-  if (!schema) {
-    return undefined;
-  }
-
-  const objectSchema = schema as ZodTypeAny & {
-    shape?: Record<string, ZodTypeAny> | (() => Record<string, ZodTypeAny>);
-  };
-  if (!objectSchema.shape) {
-    return undefined;
-  }
-
-  return typeof objectSchema.shape === "function"
-    ? objectSchema.shape()
-    : objectSchema.shape;
-}
-
-function getArrayElementSchema(
-  schema: ZodTypeAny | undefined,
-): ZodTypeAny | undefined {
-  if (!schema) {
-    return undefined;
-  }
-
-  const arraySchema = schema as ZodTypeAny & {
-    element?: ZodTypeAny;
-  };
-
-  return arraySchema.element;
-}
-
-function unwrapSchema(schema: ZodTypeAny | undefined): ZodTypeAny | undefined {
-  if (!schema) {
-    return undefined;
-  }
-
-  let current: ZodTypeAny = schema;
-  const wrapperTypes = new Set([
-    "optional",
-    "nullable",
-    "default",
-    "catch",
-    "readonly",
-    "nonoptional",
-  ]);
-
-  // Unwrap optional/nullable wrappers to reach object/array roots.
-  while (true) {
-    const wrapped = current as ZodTypeAny & {
-      def?: {
-        type?: string;
-        innerType?: ZodTypeAny;
-      };
-      _def?: {
-        type?: string;
-        innerType?: ZodTypeAny;
-      };
-      unwrap?: () => ZodTypeAny;
-    };
-    const wrapperType = wrapped.def?.type ?? wrapped._def?.type;
-
-    if (!wrapperType || !wrapperTypes.has(wrapperType)) {
-      return current;
-    }
-
-    const next =
-      (typeof wrapped.unwrap === "function" ? wrapped.unwrap() : undefined) ??
-      wrapped.def?.innerType ??
-      wrapped._def?.innerType;
-
-    if (!next || next === current) {
-      return current;
-    }
-
-    current = next;
-  }
 }

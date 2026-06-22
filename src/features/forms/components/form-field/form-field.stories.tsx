@@ -1,14 +1,8 @@
-import { zodResolver } from "@hookform/resolvers/zod";
 import type { Meta, StoryObj } from "@storybook/nextjs";
 import { expect, userEvent, within } from "storybook/test";
 import { FormProvider, useForm } from "react-hook-form";
 import { useEffect } from "react";
-import { z } from "zod";
 import { FormField } from "./form-field";
-
-const formFieldSchema = z.object({
-  email: z.email({ error: "Please enter a valid email." }),
-});
 
 const meta = {
   title: "Features/Forms/FormField",
@@ -19,12 +13,8 @@ const meta = {
   decorators: [
     (Story, context) => {
       const form = useForm({
-        resolver: zodResolver(formFieldSchema),
         defaultValues: {
           email: "",
-        },
-        context: {
-          schema: formFieldSchema,
         },
       });
 
@@ -75,7 +65,7 @@ export const WithError: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    await expect(canvas.getByRole("alert")).toHaveTextContent(
+    await expect(await canvas.findByRole("alert")).toHaveTextContent(
       "Please enter a valid email.",
     );
   },

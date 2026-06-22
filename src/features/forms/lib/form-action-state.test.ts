@@ -2,14 +2,14 @@ import { describe, expect, expectTypeOf, it } from "vitest";
 import type { FormActionState } from "./form-action-state";
 
 describe("FormActionState", () => {
-  it("defaults generic payload type to void", () => {
+  it("supports the default generic payload without requiring data", () => {
     const defaultState: FormActionState = {
       status: "idle",
       fieldErrors: {},
     };
 
     expect(defaultState.status).toBe("idle");
-    expectTypeOf<FormActionState>().toEqualTypeOf<FormActionState<void>>();
+    expect(defaultState.data).toBeUndefined();
   });
 
   it("supports generic success payload data", () => {

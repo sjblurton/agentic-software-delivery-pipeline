@@ -7,7 +7,7 @@ import { z } from "zod";
 import { FormField } from "./form-field";
 
 const formFieldSchema = z.object({
-  email: z.email("Please enter a valid email."),
+  email: z.email({ error: "Please enter a valid email." }),
 });
 
 const meta = {

@@ -1,25 +1,22 @@
 "use client";
 
 import { Input } from "@/components/ui/input/input";
+import type { ComponentProps } from "react";
 import { useController, useFormContext } from "react-hook-form";
 import type { ZodTypeAny } from "zod";
 
 type FormFieldProps = {
   label: string;
   name: string;
-  type: "email" | "password" | "text";
-  placeholder?: string;
-  autoComplete?: string;
-  disabled?: boolean;
-};
+  type: ComponentProps<"input">["type"];
+} & Omit<ComponentProps<"input">, "name" | "type">;
 
 export function FormField({
   label,
   name,
   type,
-  placeholder,
-  autoComplete,
-  disabled,
+  id,
+  ...inputProps
 }: FormFieldProps) {
   const { control } = useFormContext();
   const { field, fieldState } = useController({
@@ -41,21 +38,20 @@ export function FormField({
     (fieldState.error?.types
       ? Object.values(fieldState.error.types)[0]
       : undefined);
+  const inputId = id ?? name;
 
   return (
     <div className="flex flex-col gap-2">
-      <label className="text-sm font-medium" htmlFor={name}>
+      <label className="text-sm font-medium" htmlFor={inputId}>
         {label}
       </label>
       <Input
-        id={name}
+        id={inputId}
         type={type}
-        placeholder={placeholder}
-        autoComplete={autoComplete}
-        disabled={disabled}
+        {...field}
+        {...inputProps}
         required={isRequired}
         aria-invalid={Boolean(firstErrorMessage)}
-        {...field}
       />
       {firstErrorMessage ? (
         <p className="text-destructive text-sm" role="alert">
@@ -144,18 +140,9 @@ function getArrayElementSchema(
 
   const arraySchema = schema as ZodTypeAny & {
     element?: ZodTypeAny;
-    def?: {
-      element?: ZodTypeAny;
-    };
-    _def?: {
-      element?: ZodTypeAny;
-      type?: ZodTypeAny;
-    };
   };
 
-  return (
-    arraySchema.element ?? arraySchema.def?.element ?? arraySchema._def?.element
-  );
+  return arraySchema.element;
 }
 
 function unwrapSchema(schema: ZodTypeAny | undefined): ZodTypeAny | undefined {
@@ -164,27 +151,38 @@ function unwrapSchema(schema: ZodTypeAny | undefined): ZodTypeAny | undefined {
   }
 
   let current: ZodTypeAny = schema;
+  const wrapperTypes = new Set([
+    "optional",
+    "nullable",
+    "default",
+    "catch",
+    "readonly",
+    "nonoptional",
+  ]);
 
-  // Unwrap wrappers (optional, default, transforms, etc.) to reach object/array roots.
+  // Unwrap optional/nullable wrappers to reach object/array roots.
   while (true) {
     const wrapped = current as ZodTypeAny & {
       def?: {
+        type?: string;
         innerType?: ZodTypeAny;
-        schema?: ZodTypeAny;
-        type?: ZodTypeAny;
       };
       _def?: {
+        type?: string;
         innerType?: ZodTypeAny;
-        schema?: ZodTypeAny;
-        type?: ZodTypeAny;
       };
+      unwrap?: () => ZodTypeAny;
     };
+    const wrapperType = wrapped.def?.type ?? wrapped._def?.type;
+
+    if (!wrapperType || !wrapperTypes.has(wrapperType)) {
+      return current;
+    }
 
     const next =
+      (typeof wrapped.unwrap === "function" ? wrapped.unwrap() : undefined) ??
       wrapped.def?.innerType ??
-      wrapped.def?.schema ??
-      wrapped._def?.innerType ??
-      wrapped._def?.schema;
+      wrapped._def?.innerType;
 
     if (!next || next === current) {
       return current;

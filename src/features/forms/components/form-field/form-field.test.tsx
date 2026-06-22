@@ -8,12 +8,12 @@ import { z } from "zod";
 import { FormField } from "./form-field";
 
 const signInSchema = z.object({
-  email: z.email("Please enter a valid email."),
+  email: z.email({ error: "Please enter a valid email." }),
 });
 const nestedSchema = z.object({
   phones: z.array(
     z.object({
-      number: z.string().min(1, "Number is required."),
+      number: z.string().min(1, { error: "Number is required." }),
       extension: z.string().optional(),
     }),
   ),

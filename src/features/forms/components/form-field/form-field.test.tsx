@@ -17,6 +17,11 @@ const nestedSchema = z.object({
     }),
   ),
 });
+const optionalRootSchema = z
+  .object({
+    email: z.email({ error: "Please enter a valid email." }),
+  })
+  .optional();
 
 function TestForm() {
   const form = useForm({
@@ -43,6 +48,35 @@ describe("FormField", () => {
     render(<TestForm />);
 
     expect(screen.getByLabelText("Email")).toBeInTheDocument();
+  });
+
+  it("supports a custom input id and does not mark required without schema context", () => {
+    function FormWithoutSchemaContext() {
+      const form = useForm({
+        defaultValues: {
+          email: "",
+        },
+      });
+
+      return (
+        <FormProvider {...form}>
+          <form>
+            <FormField
+              label="Email"
+              name="email"
+              id="custom-email-id"
+              type="email"
+            />
+          </form>
+        </FormProvider>
+      );
+    }
+
+    render(<FormWithoutSchemaContext />);
+
+    const input = screen.getByLabelText("Email");
+    expect(input).toHaveAttribute("id", "custom-email-id");
+    expect(input).not.toBeRequired();
   });
 
   it("renders only the first field error message", () => {
@@ -85,6 +119,47 @@ describe("FormField", () => {
     ).not.toBeInTheDocument();
   });
 
+  it("uses the first typed error when no direct error message is present", () => {
+    function TestFormWithTypedErrors() {
+      const form = useForm({
+        resolver: zodResolver(signInSchema),
+        defaultValues: {
+          email: "",
+        },
+        context: {
+          schema: signInSchema,
+        },
+      });
+
+      useEffect(() => {
+        form.setError("email", {
+          type: "manual",
+          types: {
+            first: "Typed error should render first.",
+            second: "Second typed error should not render.",
+          },
+        });
+      }, [form]);
+
+      return (
+        <FormProvider {...form}>
+          <form>
+            <FormField label="Email" name="email" type="email" />
+          </form>
+        </FormProvider>
+      );
+    }
+
+    render(<TestFormWithTypedErrors />);
+
+    expect(
+      screen.getByText("Typed error should render first."),
+    ).toBeInTheDocument();
+    expect(
+      screen.queryByText("Second typed error should not render."),
+    ).not.toBeInTheDocument();
+  });
+
   it("extracts required metadata from schema and supports nested field paths", () => {
     function NestedForm() {
       const form = useForm({
@@ -122,5 +197,88 @@ describe("FormField", () => {
 
     expect(requiredInput).toBeRequired();
     expect(optionalInput).not.toBeRequired();
+  });
+
+  it("handles unknown schema paths without crashing and keeps field optional", () => {
+    function UnknownPathForm() {
+      const form = useForm({
+        resolver: zodResolver(signInSchema),
+        defaultValues: {
+          email: "",
+        },
+        context: {
+          schema: signInSchema,
+        },
+      });
+
+      return (
+        <FormProvider {...form}>
+          <form>
+            <FormField label="Unknown field" name="profile.email" type="text" />
+          </form>
+        </FormProvider>
+      );
+    }
+
+    render(<UnknownPathForm />);
+
+    expect(screen.getByLabelText("Unknown field")).not.toBeRequired();
+  });
+
+  it("unwraps optional root schemas when resolving required metadata", () => {
+    function OptionalRootForm() {
+      const form = useForm({
+        resolver: zodResolver(optionalRootSchema),
+        defaultValues: {
+          email: "",
+        },
+        context: {
+          schema: optionalRootSchema,
+        },
+      });
+
+      return (
+        <FormProvider {...form}>
+          <form>
+            <FormField label="Email" name="email" type="email" />
+          </form>
+        </FormProvider>
+      );
+    }
+
+    render(<OptionalRootForm />);
+
+    expect(screen.getByLabelText("Email")).toBeRequired();
+  });
+
+  it("gracefully handles wrapper metadata with no inner schema", () => {
+    const malformedSchema = {
+      def: {
+        type: "optional",
+      },
+    } as unknown as z.ZodTypeAny;
+
+    function MalformedSchemaForm() {
+      const form = useForm({
+        defaultValues: {
+          email: "",
+        },
+        context: {
+          schema: malformedSchema,
+        },
+      });
+
+      return (
+        <FormProvider {...form}>
+          <form>
+            <FormField label="Email" name="email" type="email" />
+          </form>
+        </FormProvider>
+      );
+    }
+
+    render(<MalformedSchemaForm />);
+
+    expect(screen.getByLabelText("Email")).not.toBeRequired();
   });
 });

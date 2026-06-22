@@ -228,7 +228,6 @@ describe("FormField", () => {
   it("unwraps optional root schemas when resolving required metadata", () => {
     function OptionalRootForm() {
       const form = useForm({
-        resolver: zodResolver(optionalRootSchema),
         defaultValues: {
           email: "",
         },

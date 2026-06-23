@@ -16,6 +16,8 @@
   --border: oklch(0.922 0 0);
   --input: oklch(0.922 0 0);
   --ring: oklch(0.708 0 0);
+  --destructive: oklch(0.577 0.201 27.32);
+  --destructive-foreground: oklch(0.985 0 0);
 }
 
 @theme inline {
@@ -34,6 +36,8 @@
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
@@ -55,6 +59,8 @@
     --border: oklch(1 0 0 / 10%);
     --input: oklch(1 0 0 / 15%);
     --ring: oklch(0.556 0 0);
+    --destructive: oklch(0.629 0.197 25.33);
+    --destructive-foreground: oklch(0.952 0.005 285.75);
   }
 }
 

@@ -55,6 +55,10 @@ async function getVisualStories(
 }
 
 test.describe("Storybook visual baselines", () => {
+  // This suite snapshots every test-tagged Storybook story in one loop.
+  // Default Playwright test timeout (30s) can terminate the page mid-screenshot in CI.
+  test.setTimeout(5 * 60 * 1000);
+
   test("matches baseline for every testable Storybook story", async ({
     page,
     request,

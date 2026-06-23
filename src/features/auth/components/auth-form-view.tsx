@@ -9,6 +9,7 @@ import {
 } from "@/components/ui/card/card";
 import { Input } from "@/components/ui/input/input";
 import type { AuthFieldErrors } from "../lib/auth-schemas";
+import { FieldLabel } from "@/components/ui/field-label/field-label";
 
 type AuthMode = "sign-in" | "sign-up";
 
@@ -69,9 +70,9 @@ export function AuthFormView({
             </p>
           ) : null}
           <div className="flex flex-col gap-2">
-            <label className="text-sm font-medium" htmlFor="email">
+            <FieldLabel data-invalid={Boolean(emailError)} htmlFor="email">
               Email
-            </label>
+            </FieldLabel>
             <Input
               id="email"
               name="email"
@@ -87,9 +88,12 @@ export function AuthFormView({
             ) : null}
           </div>
           <div className="flex flex-col gap-2">
-            <label className="text-sm font-medium" htmlFor="password">
+            <FieldLabel
+              data-invalid={Boolean(passwordError)}
+              htmlFor="password"
+            >
               Password
-            </label>
+            </FieldLabel>
             <Input
               id="password"
               name="password"

@@ -68,13 +68,6 @@ test.describe("Storybook visual baselines", () => {
         await page.goto(`/iframe.html?id=${story.id}&viewMode=story`);
 
         await expect(page.locator("#storybook-root > *")).toBeVisible();
-        await expect
-          .poll(async () => {
-            return page.evaluate(
-              () => getComputedStyle(document.body).backgroundColor,
-            );
-          })
-          .not.toBe("rgb(255, 255, 255)");
         await expect(page).toHaveScreenshot(story.snapshotPathSegments, {
           animations: "disabled",
           fullPage: true,

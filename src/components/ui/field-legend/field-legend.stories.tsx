@@ -1,7 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/nextjs";
 import { FieldLegend } from "./field-legend";
 import { FieldSet } from "@/components/ui/field-set/field-set";
-import { Checkbox } from "@radix-ui/react-checkbox";
 import { Label } from "@/components/ui/label/label";
 
 const meta = {
@@ -22,11 +21,11 @@ export const Default: Story = {
       <FieldLegend>Preferences</FieldLegend>
       <div className="space-y-2">
         <div className="flex items-center gap-2">
-          <Checkbox id="opt1" />
+          <input type="checkbox" id="opt1" />
           <Label htmlFor="opt1">Option 1</Label>
         </div>
         <div className="flex items-center gap-2">
-          <Checkbox id="opt2" />
+          <input type="checkbox" id="opt2" />
           <Label htmlFor="opt2">Option 2</Label>
         </div>
       </div>
@@ -57,11 +56,11 @@ export const WithDescription: Story = {
       </p>
       <div className="space-y-2">
         <div className="flex items-center gap-2">
-          <Checkbox id="email" />
+          <input type="checkbox" id="email" />
           <Label htmlFor="email">Email</Label>
         </div>
         <div className="flex items-center gap-2">
-          <Checkbox id="sms" />
+          <input type="checkbox" id="sms" />
           <Label htmlFor="sms">SMS</Label>
         </div>
       </div>

@@ -1,7 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/nextjs";
 import { FieldSet } from "./field-set";
 import { FieldLegend } from "@/components/ui/field-legend/field-legend";
-import { Checkbox } from "@radix-ui/react-checkbox";
 import { Label } from "@/components/ui/label/label";
 
 const meta = {
@@ -22,15 +21,15 @@ export const Default: Story = {
       <FieldLegend>Preferences</FieldLegend>
       <div className="space-y-2">
         <div className="flex items-center gap-2">
-          <Checkbox id="opt1" />
+          <input type="checkbox" id="opt1" />
           <Label htmlFor="opt1">Option 1</Label>
         </div>
         <div className="flex items-center gap-2">
-          <Checkbox id="opt2" />
+          <input type="checkbox" id="opt2" />
           <Label htmlFor="opt2">Option 2</Label>
         </div>
         <div className="flex items-center gap-2">
-          <Checkbox id="opt3" />
+          <input type="checkbox" id="opt3" />
           <Label htmlFor="opt3">Option 3</Label>
         </div>
       </div>
@@ -44,11 +43,11 @@ export const Disabled: Story = {
       <FieldLegend>Disabled Preferences</FieldLegend>
       <div className="space-y-2">
         <div className="flex items-center gap-2">
-          <Checkbox id="opt1" disabled />
+          <input type="checkbox" id="opt1" disabled />
           <Label htmlFor="opt1">Option 1</Label>
         </div>
         <div className="flex items-center gap-2">
-          <Checkbox id="opt2" disabled />
+          <input type="checkbox" id="opt2" disabled />
           <Label htmlFor="opt2">Option 2</Label>
         </div>
       </div>
@@ -65,15 +64,15 @@ export const WithDescription: Story = {
       </p>
       <div className="space-y-2">
         <div className="flex items-center gap-2">
-          <Checkbox id="email" defaultChecked />
+          <input type="checkbox" id="email" defaultChecked />
           <Label htmlFor="email">Email notifications</Label>
         </div>
         <div className="flex items-center gap-2">
-          <Checkbox id="sms" />
+          <input type="checkbox" id="sms" />
           <Label htmlFor="sms">SMS notifications</Label>
         </div>
         <div className="flex items-center gap-2">
-          <Checkbox id="push" />
+          <input type="checkbox" id="push" />
           <Label htmlFor="push">Push notifications</Label>
         </div>
       </div>

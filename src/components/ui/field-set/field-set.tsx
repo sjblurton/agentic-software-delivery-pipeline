@@ -1,5 +1,8 @@
 import { mergeClassNames as cn } from "@/lib/utils/styling/class-names";
 
+/** Fieldset wrapper for related controls (checkboxes/radios).
+ * https://ui.shadcn.com/docs/components/base/field#fieldset
+ */
 function FieldSet({ className, ...props }: React.ComponentProps<"fieldset">) {
   return (
     <fieldset

@@ -8,6 +8,12 @@ const meta = {
   component: FieldDescription,
   parameters: {
     layout: "centered",
+    docs: {
+      description: {
+        component:
+          "Secondary helper text for fields, typically shown below the control. https://ui.shadcn.com/docs/components/base/field#fielddescription",
+      },
+    },
   },
   tags: ["autodocs"],
 } satisfies Meta<typeof FieldDescription>;

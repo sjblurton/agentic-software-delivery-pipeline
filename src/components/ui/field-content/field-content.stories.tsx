@@ -9,6 +9,12 @@ const meta = {
   component: FieldContent,
   parameters: {
     layout: "centered",
+    docs: {
+      description: {
+        component:
+          "Composes label, control, description, and error content within a field row. https://ui.shadcn.com/docs/components/base/field#fieldcontent",
+      },
+    },
   },
   tags: ["autodocs"],
 } satisfies Meta<typeof FieldContent>;

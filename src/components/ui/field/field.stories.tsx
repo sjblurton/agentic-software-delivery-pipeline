@@ -63,9 +63,9 @@ export const ResponsiveField: Story = {
 
 export const FieldWithError: Story = {
   render: (args) => (
-    <Field {...args}>
+    <Field {...args} data-invalid>
       <FieldLabel htmlFor="field-error">Required Field</FieldLabel>
-      <Input id="field-error" aria-invalid="true" />
+      <Input id="field-error" aria-invalid />
       <FieldError>This field is required</FieldError>
     </Field>
   ),
@@ -76,9 +76,9 @@ export const FieldWithError: Story = {
 
 export const FieldWithMultipleErrors: Story = {
   render: () => (
-    <Field>
+    <Field data-invalid>
       <FieldLabel>Password</FieldLabel>
-      <Input aria-invalid="true" type="password" />
+      <Input aria-invalid type="password" />
       <FieldError
         errors={[
           { message: "Password must be at least 8 characters" },
@@ -91,9 +91,9 @@ export const FieldWithMultipleErrors: Story = {
 
 export const FieldWithDescriptionAndError: Story = {
   render: () => (
-    <Field>
+    <Field data-invalid>
       <FieldLabel htmlFor="bio">Bio</FieldLabel>
-      <Input id="bio" aria-invalid="true" />
+      <Input id="bio" aria-invalid />
       <FieldDescription>Maximum 500 characters</FieldDescription>
       <FieldError>Bio contains invalid characters</FieldError>
     </Field>

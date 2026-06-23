@@ -4,6 +4,9 @@ import { useMemo } from "react";
 
 import { mergeClassNames as cn } from "@/lib/utils/styling/class-names";
 
+/** Error content renderer for field validation messages.
+ * https://ui.shadcn.com/docs/components/base/field#fielderror
+ */
 function FieldError({
   className,
   children,

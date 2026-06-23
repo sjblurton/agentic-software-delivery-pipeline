@@ -8,6 +8,12 @@ const meta = {
   component: FieldSet,
   parameters: {
     layout: "centered",
+    docs: {
+      description: {
+        component:
+          "Semantic fieldset container for related control groups. https://ui.shadcn.com/docs/components/base/field#fieldset",
+      },
+    },
   },
   tags: ["autodocs"],
 } satisfies Meta<typeof FieldSet>;

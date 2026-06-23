@@ -6,6 +6,12 @@ const meta = {
   component: FieldTitle,
   parameters: {
     layout: "centered",
+    docs: {
+      description: {
+        component:
+          "Title text for form section headers and grouped fields. https://ui.shadcn.com/docs/components/base/field#fieldtitle",
+      },
+    },
   },
   tags: ["autodocs"],
 } satisfies Meta<typeof FieldTitle>;

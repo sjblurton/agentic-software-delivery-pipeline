@@ -1,5 +1,8 @@
 import { mergeClassNames as cn } from "@/lib/utils/styling/class-names";
 
+/** Title text used at the top of field groups and sections.
+ * https://ui.shadcn.com/docs/components/base/field#fieldtitle
+ */
 function FieldTitle({ className, ...props }: React.ComponentProps<"div">) {
   return (
     <div

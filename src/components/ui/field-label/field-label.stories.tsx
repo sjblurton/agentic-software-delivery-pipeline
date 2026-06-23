@@ -7,6 +7,12 @@ const meta = {
   component: FieldLabel,
   parameters: {
     layout: "centered",
+    docs: {
+      description: {
+        component:
+          "Accessible label that pairs with controls and supports invalid-state styling. https://ui.shadcn.com/docs/components/base/field#fieldlabel",
+      },
+    },
   },
   tags: ["autodocs"],
 } satisfies Meta<typeof FieldLabel>;
@@ -28,7 +34,7 @@ export const Default: Story = {
 export const WithRequiredIndicator: Story = {
   render: () => (
     <div className="w-64 space-y-2">
-      <FieldLabel htmlFor="required-field">
+      <FieldLabel htmlFor="required-field" data-invalid="true">
         Full Name <span className="text-destructive">*</span>
       </FieldLabel>
       <Input id="required-field" placeholder="John Doe" required />

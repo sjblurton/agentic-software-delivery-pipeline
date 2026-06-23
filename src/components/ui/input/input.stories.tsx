@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/nextjs";
+import { expect, within } from "storybook/test";
 import { Input } from "./input";
 
 const meta = {
@@ -29,5 +30,15 @@ export const Invalid: Story = {
   args: {
     "aria-invalid": true,
     value: "invalid-email",
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const input = canvas.getByDisplayValue("invalid-email");
+    const styles = getComputedStyle(input);
+
+    await expect(input).toHaveAttribute("aria-invalid", "true");
+    await expect(styles.getPropertyValue("--tw-ring-color").trim()).not.toBe(
+      "",
+    );
   },
 };

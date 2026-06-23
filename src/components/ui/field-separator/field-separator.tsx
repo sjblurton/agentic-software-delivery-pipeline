@@ -1,6 +1,9 @@
 import { mergeClassNames as cn } from "@/lib/utils/styling/class-names";
 import { Separator } from "@/components/ui/separator/separator";
 
+/** Divider between related field groups, optionally with label text.
+ * https://ui.shadcn.com/docs/components/base/field#fieldseparator
+ */
 function FieldSeparator({
   children,
   className,

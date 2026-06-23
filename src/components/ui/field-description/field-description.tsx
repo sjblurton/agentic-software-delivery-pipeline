@@ -1,5 +1,8 @@
 import { mergeClassNames as cn } from "@/lib/utils/styling/class-names";
 
+/** Helper text shown below a field control.
+ * https://ui.shadcn.com/docs/components/base/field#fielddescription
+ */
 function FieldDescription({ className, ...props }: React.ComponentProps<"p">) {
   return (
     <p

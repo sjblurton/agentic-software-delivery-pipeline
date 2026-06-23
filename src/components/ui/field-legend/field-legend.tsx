@@ -1,5 +1,8 @@
 import { mergeClassNames as cn } from "@/lib/utils/styling/class-names";
 
+/** Accessible legend for grouped field controls.
+ * https://ui.shadcn.com/docs/components/base/field#fieldlegend
+ */
 function FieldLegend({
   className,
   variant = "legend",

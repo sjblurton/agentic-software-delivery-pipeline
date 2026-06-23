@@ -1,5 +1,8 @@
 import { mergeClassNames as cn } from "@/lib/utils/styling/class-names";
 
+/** Vertical group for multiple Field blocks.
+ * https://ui.shadcn.com/docs/components/base/field#fieldgroup
+ */
 function FieldGroup({ className, ...props }: React.ComponentProps<"div">) {
   return (
     <div

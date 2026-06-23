@@ -6,6 +6,12 @@ const meta = {
   component: FieldError,
   parameters: {
     layout: "centered",
+    docs: {
+      description: {
+        component:
+          "Validation error renderer for single or multiple field errors. https://ui.shadcn.com/docs/components/base/field#fielderror",
+      },
+    },
   },
   tags: ["autodocs"],
 } satisfies Meta<typeof FieldError>;

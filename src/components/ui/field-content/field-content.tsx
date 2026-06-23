@@ -1,5 +1,8 @@
 import { mergeClassNames as cn } from "@/lib/utils/styling/class-names";
 
+/** Content wrapper for label/control/description stacks in a Field row.
+ * https://ui.shadcn.com/docs/components/base/field#fieldcontent
+ */
 function FieldContent({ className, ...props }: React.ComponentProps<"div">) {
   return (
     <div

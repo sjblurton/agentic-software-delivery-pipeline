@@ -9,7 +9,20 @@ const meta = {
   component: FieldGroup,
   parameters: {
     layout: "centered",
+    docs: {
+      description: {
+        component:
+          "Stacks multiple Field blocks into a consistent grouped layout. https://ui.shadcn.com/docs/components/base/field#fieldgroup",
+      },
+    },
   },
+  decorators: [
+    (Story) => (
+      <div className="p-4 w-lg">
+        <Story />
+      </div>
+    ),
+  ],
   tags: ["autodocs"],
 } satisfies Meta<typeof FieldGroup>;
 

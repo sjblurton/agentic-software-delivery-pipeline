@@ -77,14 +77,12 @@ _Avoid_: CI step, pipeline check, lint pass
 
 The following skills are installed globally and should be invoked when relevant:
 
-| Skill                       | When to use                                                                     |
-| --------------------------- | ------------------------------------------------------------------------------- |
-| `tdd` (Matt Pocock)         | Writing any new feature — failing test first, always                            |
-| `zod-v4`                    | Any time Zod schemas are written or reviewed — prevents v3 deprecation patterns |
-| `ui-ux-review`              | Reviewing Presentation Components, Atoms, Molecules, Organisms                  |
-| `grill-with-docs`           | Stress-testing a new plan or design decision                                    |
-| `shadcn`                    | When creating or modifying React components with shadcn/ui                      |
-| `playwright-best-practices` | When writing or modifying Playwright tests and play functions in Storybook      |
+| Skill               | When to use                                                                     |
+| ------------------- | ------------------------------------------------------------------------------- |
+| `tdd` (Matt Pocock) | Writing any new feature — failing test first, always                            |
+| `zod-v4`            | Any time Zod schemas are written or reviewed — prevents v3 deprecation patterns |
+| `ui-ux-review`      | Reviewing Presentation Components, Atoms, Molecules, Organisms                  |
+| `grill-with-docs`   | Stress-testing a new plan or design decision                                    |
 
 The following skills may need to be installed or written:
 
@@ -92,17 +90,3 @@ The following skills may need to be installed or written:
 | ----------------- | ------------------------------------------------------------------------------------- |
 | `db-migration`    | Search skill.sh for a Drizzle migration skill; write custom if none suitable          |
 | `storybook-story` | Search skill.sh for a Storybook + play functions skill; write custom if none suitable |
-
-## Form Component Phases
-
-Form component development is organized into four independent phases, each representing a vertical slice:
-
-1. **Phase 1: Core Form Atoms** — Basic inputs (input, textarea, checkbox, radio-group, switch, select) + shadcn Field components + FormFieldRHF integration. See [ADR 0012](./docs/adr/0012-phase-1-core-form-atoms-and-rhf-integration.md).
-
-2. **Phase 2: Advanced Inputs** — Searchable select (combobox), date-picker, time-picker, popover layout. See [ADR 0013](./docs/adr/0013-phase-2-advanced-inputs-and-layout-helpers.md).
-
-3. **Phase 3: Grouped Fields** — Multi-field patterns (FieldArray, ConditionalField, FormSection) and grouped layout helpers. See [ADR 0014](./docs/adr/0014-phase-3-grouped-fields-and-complex-layouts.md).
-
-4. **Phase 4: Supporting UI** — Feedback components (tooltip, badge, alert) and utility Atoms (FieldHint, FieldValidation, FormStatus). See [ADR 0015](./docs/adr/0015-phase-4-supporting-ui-and-feedback-utilities.md).
-
-Each phase is a separate PRD and PR. All components follow component co-location, include Storybook stories with play functions and a11y checks.

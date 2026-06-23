@@ -15,6 +15,18 @@ const preview: Preview = {
     nextjs: {
       appDirectory: true,
     },
+    docs: {
+      container: ({ children, context }) => {
+        return (
+          <div
+            className="dark"
+            style={{ background: "#0a0a0a", minHeight: "100vh" }}
+          >
+            {children}
+          </div>
+        );
+      },
+    },
   },
   decorators: [
     (Story) => {

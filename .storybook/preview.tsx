@@ -20,6 +20,16 @@ const preview: Preview = {
       theme: themes.dark,
     },
   },
+  decorators: [
+    (Story) => {
+      // Force dark mode for all stories
+      return (
+        <div className="dark">
+          <Story />
+        </div>
+      );
+    },
+  ],
 };
 
 export default preview;

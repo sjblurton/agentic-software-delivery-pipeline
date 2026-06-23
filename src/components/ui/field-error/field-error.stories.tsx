@@ -53,8 +53,10 @@ export const WithoutContent: Story = {
 };
 
 export const WithLongError: Story = {
-  args: {
-    children:
-      "The username you entered is already taken. Please try a different username or contact support if you believe this is an error.",
-  },
+  render: () => (
+    <FieldError>
+      The username you entered is already taken. Please try a different username
+      or contact support if you believe this is an error.
+    </FieldError>
+  ),
 };

@@ -1,4 +1,5 @@
 import type { Preview } from "@storybook/nextjs";
+import { themes } from "storybook/theming";
 import "../src/app/globals.css";
 
 const preview: Preview = {
@@ -16,28 +17,9 @@ const preview: Preview = {
       appDirectory: true,
     },
     docs: {
-      container: ({ children, context }) => {
-        return (
-          <div
-            className="dark"
-            style={{ background: "#0a0a0a", minHeight: "100vh" }}
-          >
-            {children}
-          </div>
-        );
-      },
+      theme: themes.dark,
     },
   },
-  decorators: [
-    (Story) => {
-      // Force dark mode for all stories
-      return (
-        <div className="dark">
-          <Story />
-        </div>
-      );
-    },
-  ],
 };
 
 export default preview;

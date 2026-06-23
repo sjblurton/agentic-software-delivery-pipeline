@@ -16,7 +16,9 @@ function Input({ className, type, ...props }: React.ComponentProps<"input">) {
         disabled:opacity-50 md:text-sm dark:bg-input/30`,
         `focus-visible:border-ring focus-visible:ring-[3px]
         focus-visible:ring-ring/50`,
-        `aria-invalid:border-destructive aria-invalid:ring-destructive/20
+        `aria-invalid:border-destructive aria-invalid:bg-destructive/5
+        aria-invalid:ring-[3px] aria-invalid:ring-destructive/20
+        dark:aria-invalid:bg-destructive/10
         dark:aria-invalid:ring-destructive/40`,
         className,
       )}

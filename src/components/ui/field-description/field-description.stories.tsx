@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/nextjs";
-import { FieldDescription, FieldLabel } from "@/components/ui/field/field";
+import { FieldDescription } from "@/components/ui/field-description/field-description";
+import { FieldLabel } from "@/components/ui/field-label/field-label";
 import { Input } from "@/components/ui/input/input";
 
 const meta = {

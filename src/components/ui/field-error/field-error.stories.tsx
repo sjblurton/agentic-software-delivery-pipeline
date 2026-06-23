@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/nextjs";
-import { FieldError } from "@/components/ui/field/field";
+import { FieldError } from "@/components/ui/field-error/field-error";
 
 const meta = {
   title: "UI/FieldError",
@@ -47,7 +47,7 @@ export const DuplicateErrorsFiltered: Story = {
 
 export const WithoutContent: Story = {
   args: {},
-  render: () => null,
+  render: () => <div />,
 };
 
 export const WithLongError: Story = {

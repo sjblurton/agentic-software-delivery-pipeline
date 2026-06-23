@@ -45,13 +45,6 @@ export const DuplicateErrorsFiltered: Story = {
   },
 };
 
-export const WithoutContent: Story = {
-  args: {
-    errors: [{ message: "Required field" }],
-  },
-  render: (args) => <FieldError {...args} />,
-};
-
 export const WithLongError: Story = {
   render: () => (
     <FieldError>

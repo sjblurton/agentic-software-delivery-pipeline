@@ -1,0 +1,26 @@
+import { mergeClassNames as cn } from "@/lib/utils/styling/class-names";
+
+/** Accessible legend for grouped field controls.
+ * https://ui.shadcn.com/docs/components/base/field#fieldlegend
+ */
+function FieldLegend({
+  className,
+  variant = "legend",
+  ...props
+}: React.ComponentProps<"legend"> & { variant?: "legend" | "label" }) {
+  return (
+    <legend
+      data-slot="field-legend"
+      data-variant={variant}
+      className={cn(
+        "mb-3 font-medium",
+        "data-[variant=legend]:text-base",
+        "data-[variant=label]:text-sm",
+        className,
+      )}
+      {...props}
+    />
+  );
+}
+
+export { FieldLegend };

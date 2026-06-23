@@ -10,7 +10,7 @@ const meta = {
   },
   decorators: [
     (Story) => (
-      <div className="w-[420px]" data-testid="auth-form-view-story-root">
+      <div className="w-105" data-testid="auth-form-view-story-root">
         <Story />
       </div>
     ),

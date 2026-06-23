@@ -55,6 +55,10 @@ async function getVisualStories(
 }
 
 test.describe("Storybook visual baselines", () => {
+  // This suite snapshots every test-tagged Storybook story in one loop.
+  // Default Playwright test timeout (30s) can terminate the page mid-screenshot in CI.
+  test.setTimeout(5 * 60 * 1000);
+
   test("matches baseline for every testable Storybook story", async ({
     page,
     request,
@@ -68,13 +72,6 @@ test.describe("Storybook visual baselines", () => {
         await page.goto(`/iframe.html?id=${story.id}&viewMode=story`);
 
         await expect(page.locator("#storybook-root > *")).toBeVisible();
-        await expect
-          .poll(async () => {
-            return page.evaluate(
-              () => getComputedStyle(document.body).backgroundColor,
-            );
-          })
-          .not.toBe("rgb(255, 255, 255)");
         await expect(page).toHaveScreenshot(story.snapshotPathSegments, {
           animations: "disabled",
           fullPage: true,

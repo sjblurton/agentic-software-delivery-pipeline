@@ -26,6 +26,15 @@ const eslintConfig = defineConfig([
     "build/**",
     "next-env.d.ts",
     "storybook-static/**",
+    ".workspaces/**",
+    ".worktrees/**",
+    // Additional ignores:
+    "node_modules/**",
+    "dist/**",
+    "coverage/**",
+    "public/**",
+    "playwright-report/**",
+    "test-results/**",
   ]),
 ]);
 

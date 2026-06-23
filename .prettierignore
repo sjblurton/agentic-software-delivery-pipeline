@@ -3,3 +3,10 @@ coverage
 node_modules
 .husky/_
 pnpm-lock.yaml
+storybook-static
+.workspaces
+dist
+build
+public
+playwright-report
+test-results

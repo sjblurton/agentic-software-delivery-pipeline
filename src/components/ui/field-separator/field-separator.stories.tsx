@@ -10,12 +10,6 @@ const meta = {
   component: FieldSeparator,
   parameters: {
     layout: "centered",
-    docs: {
-      description: {
-        component:
-          "Separates field sections with optional inline label text. https://ui.shadcn.com/docs/components/base/field#fieldseparator",
-      },
-    },
   },
   decorators: [
     (Story) => (

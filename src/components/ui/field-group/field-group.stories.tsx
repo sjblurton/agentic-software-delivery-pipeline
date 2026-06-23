@@ -9,12 +9,6 @@ const meta = {
   component: FieldGroup,
   parameters: {
     layout: "centered",
-    docs: {
-      description: {
-        component:
-          "Stacks multiple Field blocks into a consistent grouped layout. https://ui.shadcn.com/docs/components/base/field#fieldgroup",
-      },
-    },
   },
   decorators: [
     (Story) => (

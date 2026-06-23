@@ -8,12 +8,6 @@ const meta = {
   component: FieldLegend,
   parameters: {
     layout: "centered",
-    docs: {
-      description: {
-        component:
-          "Legend text for grouped controls within a FieldSet. https://ui.shadcn.com/docs/components/base/field#fieldlegend",
-      },
-    },
   },
   tags: ["autodocs"],
 } satisfies Meta<typeof FieldLegend>;

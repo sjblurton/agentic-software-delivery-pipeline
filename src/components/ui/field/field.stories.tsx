@@ -94,8 +94,8 @@ export const FieldWithDescriptionAndError: Story = {
     <Field data-invalid>
       <FieldLabel htmlFor="bio">Bio</FieldLabel>
       <Input id="bio" aria-invalid />
-      <FieldDescription>Maximum 500 characters</FieldDescription>
-      <FieldError>Bio contains invalid characters</FieldError>
+      <FieldDescription>This is a description field</FieldDescription>
+      <FieldError>Bio error field</FieldError>
     </Field>
   ),
 };

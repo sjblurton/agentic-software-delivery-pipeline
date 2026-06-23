@@ -5,6 +5,10 @@ import { Separator as SeparatorPrimitive } from "radix-ui";
 
 import { mergeClassNames as cn } from "@/lib/utils/styling/class-names";
 
+/**
+ * Separator primitive for a Field composition.
+ * https://www.radix-ui.com/primitives/docs/components/separator
+ */
 function Separator({
   className,
   orientation = "horizontal",

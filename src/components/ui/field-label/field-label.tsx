@@ -18,7 +18,7 @@ function FieldLabel({
         group-data-[invalid=true]/field:text-destructive`,
         `has-[>[data-slot=field]]:w-full has-[>[data-slot=field]]:flex-col
         has-[>[data-slot=field]]:rounded-md has-[>[data-slot=field]]:border
-        [&>*]:data-[slot=field]:p-4`,
+        *:data-[slot=field]:p-4`,
         `has-data-[state=checked]:border-primary
         has-data-[state=checked]:bg-primary/5
         dark:has-data-[state=checked]:bg-primary/10`,

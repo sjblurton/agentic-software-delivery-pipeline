@@ -5,6 +5,10 @@ import { Label as LabelPrimitive } from "radix-ui";
 
 import { mergeClassNames as cn } from "@/lib/utils/styling/class-names";
 
+/**
+ * Label primitive for a FieldLabel in shadcn Field composition.
+ * https://www.radix-ui.com/primitives/docs/components/label
+ */
 function Label({
   className,
   ...props
